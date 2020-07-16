@@ -57,6 +57,21 @@
 			<artifactId>mybatis-spring-boot-starter</artifactId>
 			<version>1.2.0</version>
 		</dependency>
+		
+		<!--jquery  -->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>jquery</artifactId>
+            <version>3.5.0</version>
+        </dependency>
+
+		<!--  bootstrap-->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>4.4.1-1</version>
+        </dependency>
+        
 	</dependencies>
 
 	<build>
@@ -67,5 +82,7 @@
 			</plugin>
 		</plugins>
 	</build>
+	
 
+  
 </project>
