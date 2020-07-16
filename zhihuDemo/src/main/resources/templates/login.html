@@ -10,7 +10,9 @@
 <script>
     $(function () {
         var show_num = [];
+        var status = [true,true,false];
         draw(show_num);
+      	
         $("#canvas").click(function () {
             draw(show_num);
         });
@@ -19,8 +21,11 @@
         })
         $("#username").on('blur',function() {
             var val = document.getElementById("username").value;
+            status[0]=true;
             if (val == '') {
+            	alert("4655565");
                 $("#user").css('visibility','visible');
+                status[0]=false;
             }
         })
         $("#password").on('focus',function(){
@@ -29,10 +34,13 @@
         })
         $("#password").on('blur',function() {
             var val = document.getElementById("password").value;
+            status[1]=true;
             if (val == '') {
                 $("#pwd").css('visibility','visible');
+                status[1]=false;
             }else if(val.length<6){
                 $("#pwderror").css('visibility','visible');
+                status[1]=false;
             }
         })
         $("#text").on('focus',function(){
@@ -42,16 +50,23 @@
         $("#text").on('blur',function(){
             var val = document.getElementById("text").value;
             var num = show_num.join("");
+            status[2]=true;
             if (val == '') {
                 $("#yan").css('visibility','visible');
+                status[2]=false;
             } else if (val == num) {
-
+            	if(status[0]&&status[1]&&status[2]){    
+                 	 $(".btn_login").css("background-color","#0084ff");
+                 	 $(".btn_login").removeAttr("disabled");   	 
+            	}
             } else {
                 $("#error").css('visibility','visible');
+                status[2]=false;
             }
 
         });
-
+        
+      
         function draw(show_num) {
             var canvas_width = document.getElementById('canvas').clientWidth;
             var canvas_height = document.getElementById('canvas').clientHeight;
@@ -112,27 +127,28 @@
 <body>
 <div class="container">
     <div class="logo">
-        <img src="images/logo.jpg">
+        <img src="/images/logo.jpg">
     </div>
     <div class="login">
         <div class="form">
-            <form action="user/login" method="post">
-                <input type="text" placeholder="用户名" id="username"><br>
+            <form  action="/user/login" method="post">
+                <input  type="text" placeholder="用户名" id="username" name="username"><br>
                 <p class="hint" id="user">请输入用户名</p>
-                <input type="password" placeholder="密码(不少于6位数)" id="password"><br>
+                <input  type="password" placeholder="密码(不少于6位数)" id="password" name="password"><br>
                 <p  class="hint" id="pwd">请输入密码</p>
                 <p  class="error" id="pwderror" style="margin-right: 100px;">密码不少于6位</p>
-                <input type="text" value="" placeholder="请输入验证码（区分大小写）"
+                <input  type="text" value="" placeholder="请输入验证码（区分大小写）"
                        id ="text" style="width: 200px;">
                 <canvas id="canvas" width="100" height="40"
                         style="border: 1px solid #ccc;vertical-align: middle;
         border-radius: 5px;"></canvas>
                 <p  class="hint" id="yan">请输入验证码</p>
                 <p  class="error" id="error" style="margin-right: 100px;">验证码出错</p>
-                <input type="submit" value="登录" class="btn_login">
+                <input type="submit" id="btn_login" disabled="disabled" value="登录" class="btn_login">
             </form>
+            
             <div class="forget_regis">
-                <span><a href="templates/register.html">没有账号？</a></span>
+                <span><a href="/user/register">没有账号？</a></span>
                 <span><a href="">忘记密码</a></span>
             </div>
             <div class="load">

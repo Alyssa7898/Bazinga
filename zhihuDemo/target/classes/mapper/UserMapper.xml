@@ -5,6 +5,7 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="phonenumber" jdbcType="VARCHAR" property="phonenumber" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -65,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, username, password
+    id, username, password,phonenumber
   </sql>
   <select id="selectByExample" parameterType="com.team.zhihu.bean.UserExample" resultMap="BaseResultMap">
     select
@@ -81,6 +82,21 @@
       order by ${orderByClause}
     </if>
   </select>
+  
+   <select id="selectByUser" parameterType="com.team.zhihu.bean.User" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where username = #{username,jdbcType=VARCHAR} and password =  #{password,jdbcType=VARCHAR}
+  </select>
+  
+   <select id="selectByPhoneNumber" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where phonenumber = #{phonenumber,jdbcType=VARCHAR}
+  </select>
+  
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -98,9 +114,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.team.zhihu.bean.User">
-    insert into user (id, username, password
+    insert into user (id, username, password,phonenumber
       )
-    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},#{phonenumber,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.team.zhihu.bean.User">
@@ -115,6 +131,9 @@
       <if test="password != null">
         password,
       </if>
+       <if test="phonenumber != null">
+        phonenumber,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -125,6 +144,9 @@
       </if>
       <if test="password != null">
         #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="phonenumber != null">
+        #{phonenumber,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>

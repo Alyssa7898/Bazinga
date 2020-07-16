@@ -6,8 +6,18 @@ public class User {
     private String username;
 
     private String password;
+    
+    private String phonenumber;
 
-    public Integer getId() {
+	public String getPhonenumber() {
+		return phonenumber;
+	}
+
+	public void setPhonenumber(String phonenumber) {
+		this.phonenumber = phonenumber ;
+	}
+
+	public Integer getId() {
         return id;
     }
 

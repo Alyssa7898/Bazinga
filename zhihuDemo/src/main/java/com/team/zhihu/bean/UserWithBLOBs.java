@@ -1,7 +1,9 @@
 package com.team.zhihu.bean;
 
 public class UserWithBLOBs extends User {
-    private byte[] sslCipher;
+ 
+
+	private byte[] sslCipher;
 
     private byte[] x509Issuer;
 
