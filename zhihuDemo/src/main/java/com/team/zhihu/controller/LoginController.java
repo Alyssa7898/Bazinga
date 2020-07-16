@@ -19,7 +19,7 @@ public class LoginController {
 	@Autowired
 	UserMapper userMapper;
 	
-	@RequestMapping("login")
+	@RequestMapping("user/login")
 	//自动注入
 	public String login(String username,String password,Model model) {
 		

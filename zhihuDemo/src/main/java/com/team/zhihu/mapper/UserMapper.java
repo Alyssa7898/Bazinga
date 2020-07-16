@@ -5,6 +5,7 @@ import com.team.zhihu.bean.UserExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
+
 public interface UserMapper {
     long countByExample(UserExample example);
 

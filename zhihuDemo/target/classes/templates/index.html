@@ -1,288 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>知乎</title>
     <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <link href="css/index.css" th:href="@{/css/index.css}" rel="stylesheet">
 </head>
-<style>
-    *{
-        margin:0;
-        padding:0;
 
-    }
-    body{
-        font-family: -apple-system,BlinkMacSystemFont,Helvetica Neue,PingFang SC,Microsoft YaHei,Source Han Sans SC,Noto Sans CJK SC,WenQuanYi Micro Hei,sans-serif;
-    }
-    .container{
-        width:100vw;
-        height:100vh;
-        background-color: #f6f6f6;
-    }
-    .header{
-        width: 100%;
-        height:50px;
-
-        background-color: #ffffff;
-    }
-    .header-content{
-        width: 80%;
-        height: 100%;
-        margin: 0 auto;
-
-        display: flex;
-        position: relative;
-    }
-    .header-content .logo{
-       width: 100px;
-        height: 100%;
-
-    }
-    .header-content .logo img,.user{
-        width: 100%;
-        height:100%;
-    }
-    .header-content .nav{
-        display: flex;
-        position: relative;
-    }
-    ul{
-        list-style: none;
-        display: flex;
-    }
-    .nav-left{
-
-    }
-    .nav-left li{
-        text-align: center;
-        line-height: 50px;
-        margin-left: 30px;
-        font-size: 15px;
-        color:#8590a6;
-
-    }
-    .search-div{
-        margin: auto;
-        position: relative;
-    }
-    .search {
-        outline: none;
-        border: 1px solid #ece5e1;
-        width: 300px;
-        color: #1a1a1a;
-        height: 33px;
-        line-height: 33px;
-        text-align: start;
-        border-radius: 3px;
-        margin-left: 60px;
-        background-color: #f9f6f6;
-
-    }
-    .btn-search{
-        position: absolute;
-        right: 0;
-        margin: 5px;
-        width: 23px;
-        height: 23px;
-        cursor: pointer;
-    }
-
-    .user{
-        width: 40px;
-        height: 100%;
-    }
-    .user img{
-        width:100%;
-        height:70%;
-    }
-    .nav-right{
-        display: flex;
-        margin-left: 80px;
-        padding-top:10px ;
-    }
-    .nav-right li{
-        text-align: center;
-        width:25px;
-        height: 25px;
-        margin-left: 40px;
-    }
-    .nav-right li img{
-        width: 100%;
-        height: 100%;
-       color: #8590a6;
-
-    }
-    a{
-        text-decoration: none;
-        color:#8590a6;
-    }
-    .btn-question{
-        line-height: 25px;
-        height: 25px;
-        padding: 3px 10px;
-        margin-top: 8px;
-        margin-left: 10px;
-        font-size: 14px;
-
-        background-color: #0084ff;
-        border-radius: 5px;
-    }
-    .btn-question a{
-        color:#ffffff;
-    }
-    .main{
-        width:80%;
-        height:100vh;
-
-        margin: 10px auto;
-    }
-    .main .left{
-        width: 70%;
-        height: 100%;
-        float:left;
-        background-color: deeppink;
-    }
-    .main .right{
-        width:29%;
-        height:100%;
-        float:right;
-        margin-left: 5px;
-
-    }
-    .operator{
-
-        background-color: white;
-    }
-    .operator .top{
-
-        display: flex;
-        margin: 0 auto;
-        padding-top: 30px;
-        border-bottom: 1px solid #f6f6f6;
-    }
-    .operator .bottom{
-        display: flex;
-        text-align: center;
-    }
-    .operator .bottom span:first-child{
-        border-right: 1px solid #f6f6f6;
-    }
-    .operator .bottom span{
-        flex: 1;
-        justify-content: space-around;
-        line-height: 50px;
-
-    }
-    .operator .top li{
-        text-align: center;
-        flex: 1;
-        justify-content: space-around;
-
-    }
-    .operator .top li img{
-        padding: 8px;
-         width: 25px;
-          border-radius: 50%;
-            height:25px;
-
-
-    }
-    .operator .top li p{
-        font-size: 12px;
-       line-height: 3;
-        text-align: center;
-        color: #444;
-        white-space: nowrap;
-    }
-    .create_center{
-        height: 52px;
-        background-color: white;
-        display: flex;
-        text-align: center;
-        align-items: center;
-        font-size: 14px;
-        line-height: 1.4;
-        padding: 0 15px;
-        color: #7c879e;
-        position: relative;
-        margin-top: 10px;
-    }
-    .create_center span {
-       position: absolute;
-        right: 10px;
-        font-size: 15px;
-        color:#0084ff;
-    }
-    .create_center img{
-        width: 30px;
-        height: 30px;
-    }
-    .f_type{
-
-        width: 100%;
-        height: 200px;
-        margin-top: 10px;
-        background-color: white;
-    }
-    .f_type p img{
-        width: 90%;
-       margin:10px 5%;
-    }
-    .icon{
-        display: grid;
-        grid-template-columns: repeat(3,1fr);
-        column-gap: 5px;
-        row-gap: 10px;
-    }
-    .icon div{
-        text-align: center;
-
-    }
-    .icon div img{
-        width: 30px;
-        height: 30px;
-    }
-    .user-list{
-        width: 100%;
-        height: auto;
-        display: grid;
-        grid-template-rows: repeat(6,1fr);
-        row-gap: 5px;
-        margin-top: 10px;
-        background-color: white;
-    }
-    .user-list div{
-        text-align: left;
-        height: 40px;
-    }
-    .user-list div p  {
-        padding:0 15px;
-       height: 30px;
-        line-height: 40px;
-        justify-content: center;
-        align-items: center;
-        position: relative;
-        color: #5e687e;
-    }
-    .user-list div p img{
-        margin-right: 8px;
-        width: 25px;
-        height: 25px;
-
-        vertical-align: middle;
-    }
-    .user-list div p span {
-        margin-top: 5px;
-        height: 30px;
-       padding: 0 8px;
-        position: absolute;
-        right: 10px;
-        background-color: #f6f6f6;
-        color:#8590a6;
-        font-size: 12px;
-
-    }
-</style>
 <script>
 </script>
 <body>
@@ -290,7 +14,7 @@
     <div class="header">
         <div class="header-content">
             <div class="logo">
-                <img src="images/logo.jpg" id="img">
+                <img src="/images/logo.jpg" id="img">
             </div>
             <div class="nav">
                 <ul class="nav-left">
@@ -300,14 +24,14 @@
                 </ul>
                 <div class="search-div">
                     <form action="" method="post">
-                        <input type="text" placeholder="请输入关键词" class="search" id="keyword"><img src="images/search.png" class="btn-search">
+                        <input type="text" placeholder="请输入关键词" class="search" id="keyword"><img src="/images/search.png" class="btn-search">
                     </form>
                 </div>
              <span class="btn-question"> <a href="">提问</a></span>
                 <ul class="nav-right">
-                    <li><a href=""><img src="images/ling.png"></a></li>
-                    <li><a href="" ><img src="images/info.png"></a></li>
-                    <li class="user"><a href=""><img src="images/person.jpg"></a></li>
+                    <li><a href=""><img src="/images/ling.png"></a></li>
+                    <li><a href="" ><img src="/images/info.png"></a></li>
+                    <li class="user"><a href=""><img src="/images/person.jpg"></a></li>
                 </ul>
             </div>
         </div>
@@ -320,10 +44,10 @@
         <div class="right">
             <div class="operator">
                 <ul class="top">
-                    <li><a href=""> <img src="images/book.png" style="background-color: #e1f1ff;"></a><p>回答问题</p></li>
-                    <li><a href=""><img src="images/vidio.png" style="background-color: #fff3e2;"></a><p>发视频</p></li>
-                    <li><a href=""><img src="images/write.png" style="background-color: #fee2fe;"></a><p>写文章</p></li>
-                    <li><a href=""><img src="images/Setting.png" style="background-color: #e5f7f7;"></a><p>写想法</p></li>
+                    <li><a href=""> <img src="/images/book.png" style="background-color: #e1f1ff;"></a><p>回答问题</p></li>
+                    <li><a href=""><img src="/images/vidio.png" style="background-color: #fff3e2;"></a><p>发视频</p></li>
+                    <li><a href=""><img src="/images/write.png" style="background-color: #fee2fe;"></a><p>写文章</p></li>
+                    <li><a href=""><img src="/images/Setting.png" style="background-color: #e5f7f7;"></a><p>写想法</p></li>
                 </ul>
                 <div class="bottom">
                     <span>稍后答</span>
@@ -331,28 +55,28 @@
                 </div>
             </div>
             <div class="create_center">
-                    <img src="images/peoples.png">
+                    <img src="/images/peoples.png">
                     创作中心
                     <span>去开通 ></span>
             </div>
             <div class="f_type">
-                <p><img src="images/rightbanner.png"></p>
+                <p><img src="/images/rightbanner.png"></p>
                 <div class="icon">
-                    <div><img src="images/shandian.png"><p>Live</p></div>
-                    <div><img src="images/bookstor.png"><p>书店</p></div>
-                    <div><img src="images/flower.png"><p>圆桌</p></div>
-                    <div><img src="images/pen.png"><p>专栏</p></div>
-                    <div><img src="images/money.png"><p>付费咨询</p></div>
-                    <div><img src="images/data.png"><p>百科</p></div>
+                    <div><img src="/images/shandian.png"><p>Live</p></div>
+                    <div><img src="/images/bookstor.png"><p>书店</p></div>
+                    <div><img src="/images/flower.png"><p>圆桌</p></div>
+                    <div><img src="/images/pen.png"><p>专栏</p></div>
+                    <div><img src="/images/money.png"><p>付费咨询</p></div>
+                    <div><img src="/images/data.png"><p>百科</p></div>
                 </div>
             </div>
             <div class="user-list">
-                <div><p><img src="images/collect.png">收藏<span>0</span></p></div>
-                <div><p><img src="images/wenhao.png">我关注的问题<span>0</span></p></div>
-                <div><p><img src="images/addp.png">我的邀请<span>0</span></p></div>
-                <div><p><img src="images/zhandian.png">站点服务</p></div>
-                <div><p><img src="images/service.png">帮助中心</p></div>
-                <div><p><img src="images/banquan.png">版权服务中心</p></div>
+                <div><p><img src="/images/collect.png">收藏<span>0</span></p></div>
+                <div><p><img src="/images/wenhao.png">我关注的问题<span>0</span></p></div>
+                <div><p><img src="/images/addp.png">我的邀请<span>0</span></p></div>
+                <div><p><img src="/images/zhandian.png">站点服务</p></div>
+                <div><p><img src="/images/service.png">帮助中心</p></div>
+                <div><p><img src="/images/banquan.png">版权服务中心</p></div>
             </div>
         </div>
     </div>
