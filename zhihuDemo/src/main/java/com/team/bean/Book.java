@@ -1,4 +1,4 @@
-package Bean;
+package com.team.bean;
 
 public class Book {
 	private int id;
@@ -7,6 +7,32 @@ public class Book {
 	private String author;
 	private double price;
 	private String press;
+	private String details;
+	private int typeid;
+	public String getDetails() {
+		return details;
+	}
+	public void setDetails(String details) {
+		this.details = details;
+	}
+	public int getTypeid() {
+		return typeid;
+	}
+	public void setTypeid(int typeid) {
+		this.typeid = typeid;
+	}
+	public Book(int id, String bno, String bname, String author, double price, String press, String details,
+			int typeid) {
+		super();
+		this.id = id;
+		this.bno = bno;
+		this.bname = bname;
+		this.author = author;
+		this.price = price;
+		this.press = press;
+		this.details = details;
+		this.typeid = typeid;
+	}
 	public Book() {
 		// TODO Auto-generated constructor stub
 	} 
@@ -61,7 +87,7 @@ public class Book {
 	@Override
 	public String toString() {
 		return "Book [id=" + id + ", bno=" + bno + ", bname=" + bname + ", author=" + author + ", price=" + price
-				+ ", press=" + press + "]";
+				+ ", press=" + press + ", details=" + details + ", typeid=" + typeid + "]";
 	}
  
 	
