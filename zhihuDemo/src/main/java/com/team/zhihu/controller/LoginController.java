@@ -30,10 +30,14 @@ public class LoginController {
 	 @RequestMapping("user/login")
      public String userLogin(User user,HttpServletRequest req,HttpServletResponse resp) throws IOException {
 	 	 User loginUser = userService.selectByUser(user);
-	 	 HttpSession session = req.getSession();
-	 	 // 将当前用户放到session中 名为curUser
+	 	 HttpSession session = req.getSession(); 
+	 	 
+	 	// 将当前用户放到session中 名为curUser
 	 	 session.setAttribute("curUser", loginUser);
 	 	 if(loginUser!=null) {
+	 		//传递userid
+		 	 session.setAttribute("currId", loginUser.getId());
+		 	 System.out.println("前端传递的id：======================="+loginUser.getId());
 	 		 return "index";
 	 	 }else {
 	 		resp.setContentType("text/html; charset=UTF-8");
