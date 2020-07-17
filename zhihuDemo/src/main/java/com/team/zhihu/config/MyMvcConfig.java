@@ -18,6 +18,7 @@ public class MyMvcConfig  implements WebMvcConfigurer{
 		 registry.addViewController("/index").setViewName("index");
 	}
 	
+	// 拦截器
 	 @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new MyInterceptor()).addPathPatterns("/**")
