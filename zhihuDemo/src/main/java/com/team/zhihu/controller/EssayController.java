@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.team.zhihu.bean.Essay;
 import com.team.zhihu.service.EssayService;
 import com.team.zhihu.util.DateUtil;
+import com.team.zhihu.utils.MsgPrintUtil;
 
 @Controller
 public class EssayController {
@@ -37,7 +38,6 @@ public class EssayController {
 		HttpSession session=request.getSession();
 		Essay essay=null;
 		title=request.getParameter("title");
-		System.out.println("dfrfrtg======================="+title);
 		content=request.getParameter("content");
 		int goodnum=0;
 		int type=0;
@@ -47,27 +47,12 @@ public class EssayController {
 		String time=DateUtil.dateToString(date, "yyyy-MM-dd HH:mm:ss");
 		essay=new Essay(0,title,content,goodnum,type,topicType,userid,time);
 		int n=essayService.insert(essay);
-		System.out.println("============================"+n);
 		if(n!=0) {
-			
-			resp.setContentType("text/html; charset=UTF-8");
-	 		PrintWriter out = resp.getWriter();
-			out.write("<script>");
-			out.write("alert('发布成功！');");
-			out.write("location.href='index';");
-			out.write("</script>");
-			out.close();
+		    MsgPrintUtil.doResponse(resp, "发布成功！", "index");
 		    return "index";	
-			
 		}
 		else {
-			resp.setContentType("text/html; charset=UTF-8");
-	 		PrintWriter out = resp.getWriter();
-			out.write("<script>");
-			out.write("alert('发布异常，请重新发布');");
-			out.write("location.href='/';");
-			out.write("</script>");
-			out.close();
+		    MsgPrintUtil.doResponse(resp, "发布异常，请重新发布", "/");
 	 		return "writeessay";
 			
 		}
