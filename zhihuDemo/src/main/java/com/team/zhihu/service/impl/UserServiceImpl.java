@@ -28,5 +28,10 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		return userMapper.selectByPhoneNumber(phonenumber);
 	}
+	@Override
+	public User selectByUserName(String username) {
+		// TODO Auto-generated method stub
+		return userMapper.selectByUserName(username);
+	}
 
 }
