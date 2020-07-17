@@ -55,6 +55,7 @@
                 $("#yan").css('visibility','visible');
                 status[2]=false;
             } else if (val == num) {
+            	// 当用户名 密码 和 验证码 没有问题的时候  可以登录
             	if(status[0]&&status[1]&&status[2]){    
                  	 $(".btn_login").css("background-color","#0084ff");
                  	 $(".btn_login").removeAttr("disabled");   	 
@@ -151,7 +152,6 @@
                 <span><a href="/user/register">没有账号？</a></span>
                 <span><a href="">忘记密码</a></span>
             </div>
-            
             
             <div class="load">
                <p style="color: grey;font-size: 13px;">未注册手机验证后自动登录，注册即代表同意《知乎协议》《隐私保护指引》</p>

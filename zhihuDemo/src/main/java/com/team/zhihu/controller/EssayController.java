@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.team.zhihu.bean.Essay;
 import com.team.zhihu.service.EssayService;
-import com.team.zhihu.util.DateUtil;
+import com.team.zhihu.utils.DateUtil;
 import com.team.zhihu.utils.MsgPrintUtil;
 
 @Controller
@@ -44,17 +44,16 @@ public class EssayController {
 		int topicType=0;
 		Date date =new Date();
 		int userid=(int)session.getAttribute("currId");
-		String time=DateUtil.dateToString(date, "yyyy-MM-dd HH:mm:ss");
-		essay=new Essay(0,title,content,goodnum,type,topicType,userid,time);
+		String time=DateUtil.dateToString(date);
+		essay=new Essay(null,title,content,goodnum,type,topicType,userid,time);
 		int n=essayService.insert(essay);
 		if(n!=0) {
 		    MsgPrintUtil.doResponse(resp, "发布成功！", "index");
 		    return "index";	
 		}
 		else {
-		    MsgPrintUtil.doResponse(resp, "发布异常，请重新发布", "/");
-	 		return "writeessay";
-			
+		    MsgPrintUtil.doResponse(resp, "发布异常，请重新发布", "//writeessay");
+	 		return "writeessay";	
 		}
 	  
 	

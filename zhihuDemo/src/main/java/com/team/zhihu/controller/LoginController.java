@@ -38,7 +38,7 @@ public class LoginController {
 	 	 if(loginUser!=null) {
 	 		//传递userid
 		 	 session.setAttribute("currId", loginUser.getId());
-	 		 return "index";
+	 		 return "redirect:/index";
 	 	 }else {
 	 		MsgPrintUtil.doResponse(resp, "登录失败，用户名或密码错误", "/");
 	 		return "login";
@@ -50,7 +50,7 @@ public class LoginController {
 	 public String userRegister(User user,HttpServletResponse resp) throws IOException {
 		 User cherkPhonenumberUser = userService.selectByphonenumber(user.getPhonenumber());
 		 User checkNameUser        = userService.selectByUserName(user.getUsername());
-		 //电话号码不相同 就插入
+		 //电话号码和用户名不相同 就插入
 		 if(checkNameUser==null) {
 			 if(cherkPhonenumberUser==null) {
 			 int i =  userService.insertUser(user);
@@ -62,10 +62,12 @@ public class LoginController {
 					 return "register";
 				 }
 			 }else {
+				 // 存在要注册的电话号码 则注册失败
 				 MsgPrintUtil.doResponse(resp, "该电话号码已被注册", "/user/register");
 				 return "register";
 			 }
 		 }else {
+			 // 用户名已存在  则注册失败
 			 MsgPrintUtil.doResponse(resp, "该用户名已被注册", "/user/register");
 			 return "register";
 		 }
