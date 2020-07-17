@@ -33,5 +33,7 @@ public interface UserMapper {
 
 	User selectByPhoneNumber(String phonenumber);
 
+	User selectByUserName(String username);
+
     
 }

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.team.zhihu.bean.User;
 import com.team.zhihu.mapper.UserMapper;
 import com.team.zhihu.service.UserService;
+import com.team.zhihu.utils.MsgPrintUtil;
 
 
 @Controller
@@ -34,15 +35,9 @@ public class LoginController {
 	 	 // 将当前用户放到session中 名为curUser
 	 	 session.setAttribute("curUser", loginUser);
 	 	 if(loginUser!=null) {
-	 		 return "index";
+	 		 return "redirect:/index";
 	 	 }else {
-	 		resp.setContentType("text/html; charset=UTF-8");
-	 		PrintWriter out = resp.getWriter();
-			out.write("<script>");
-			out.write("alert('登录失败，用户名或密码错误');");
-			out.write("location.href='/';");
-			out.write("</script>");
-			out.close();
+	 		MsgPrintUtil.doResponse(resp, "登录失败，用户名或密码错误", "/");
 	 		return "login";
 	 	 }
      }
@@ -50,38 +45,29 @@ public class LoginController {
 	 //用户注册
 	 @RequestMapping("/user/doRegister")
 	 public String userRegister(User user,HttpServletResponse resp) throws IOException {
-		 User registerUser = userService.selectByphonenumber(user.getPhonenumber());
+		 User checkphonenumberUser = userService.selectByphonenumber(user.getPhonenumber());
+		 User checkNameUser = userService.selectByUserName(user.getUsername());
 		 //电话号码不相同 就插入
-		 if(registerUser==null) {
-		 int i =  userService.insertUser(user);
-			 if(i>0) {
-				 resp.setContentType("text/html; charset=UTF-8");
-			 		PrintWriter out = resp.getWriter();
-					out.write("<script>");
-					out.write("alert('注册成功');");
-					out.write("location.href='/';");
-					out.write("</script>");
-					out.close();
-				 return "login";
+		 if(checkNameUser==null) {
+			 if(checkphonenumberUser==null) {
+				 //当 用户名跟电话号码 都没有被注册的时候  执行插入
+				 int i =  userService.insertUser(user);
+				 	if(i>0) {
+				 		MsgPrintUtil.doResponse(resp, "注册成功", "/");
+				 		return "login";
+				 	}else {
+				 		MsgPrintUtil.doResponse(resp, "注册失败", "/user/register");
+				 		return "register";
+				 	}
 			 }else {
-				 resp.setContentType("text/html; charset=UTF-8");
-			 		PrintWriter out = resp.getWriter();
-					out.write("<script>");
-					out.write("alert('注册失败');");
-					out.write("location.href='/user/register';");
-					out.write("</script>");
-					out.close();
+				 // 电话号码存在 提示用户
+				 MsgPrintUtil.doResponse(resp, "该电话号码已被注册", "/user/register");
 				 return "register";
 			 }
 		 }else {
-			 resp.setContentType("text/html; charset=UTF-8");
-		 		PrintWriter out = resp.getWriter();
-				out.write("<script>");
-				out.write("alert('该电话号码已被注册');");
-				out.write("location.href='/user/register';");
-				out.write("</script>");
-				out.close();
-			 return "register";
+			 // 用户名存在 提示用户
+			 MsgPrintUtil.doResponse(resp, "该用户名已被注册", "/user/register");
+		 	 return "register";
 		 }
 	 }
 	 
