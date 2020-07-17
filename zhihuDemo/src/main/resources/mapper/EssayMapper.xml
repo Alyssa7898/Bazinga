@@ -11,6 +11,26 @@
     <result column="userid" jdbcType="INTEGER" property="userid" />
     <result column="date" jdbcType="VARCHAR" property="date" />
   </resultMap>
+  <!-- user,essay -->
+  <!-- <resultMap id="WitdEssayResultMap"
+		type="com.team.zhihu.bean.Essay">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="title" jdbcType="VARCHAR" property="title" />
+		<result column="context" jdbcType="LONGVARCHAR" property="context" />
+		<result column="goodnum" jdbcType="INTEGER" property="goodnum" />
+		<result column="type" jdbcType="INTEGER" property="type" />
+		<result column="topictype" jdbcType="INTEGER" property="topictype"/>
+		<result column="userid" jdbcType="INTEGER" property="userid" />
+		<result column="date" jdbcType="VARCHAR" property="date" />
+		联合查询一对一时，对象成员使用 association映射
+		<association property="user"
+			javaType="com.team.zhihu.bean.User">
+			<id column="id" property="id" />
+			<result column="username" property="username" />
+			<result column="password" property="password" />
+			<result column="phonenumber" property="phonenumber" />
+		</association>
+	</resultMap> -->
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -72,6 +92,13 @@
   <sql id="Base_Column_List">
     id, title, context, goodnum, type, topictype, userid, date
   </sql>
+ <!--  <sql id="WithEssay_Column_List">
+		e.id, e.title, e.context, e.goodnum,e.type, e.topictype,e.userid,e.date,
+		u.id,
+		u.username,
+		u.password,
+		u.phonenumber
+	</sql> -->
   <select id="selectByExample" parameterType="com.team.zhihu.bean.EssayExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -92,6 +119,23 @@
     from essay
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <!--查询所有文章  -->
+  <select id="selectByEtype" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from essay
+    where type = #{type,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 联合查询 user,essay -->
+  <!-- <select id="selectEssayWithUname"
+		parameterType="java.lang.Integer" resultMap="WitdEssayResultMap">
+		select e.*,u.id,u.username,u.passwor,u.phonenumber
+		<include refid="WithEssay_Column_List" />
+		from essay e left join user u on e.userid = u.id
+		where type
+		= #{type,jdbcType=INTEGER} order by e.id desc
+  </select> -->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from essay
     where id = #{id,jdbcType=INTEGER}

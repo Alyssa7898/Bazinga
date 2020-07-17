@@ -16,8 +16,23 @@ public class Essay {
     private Integer userid;
 
     private String date;
+    private User user;
 
-    public Integer getId() {
+    public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	@Override
+	public String toString() {
+		return "Essay [id=" + id + ", title=" + title + ", context=" + context + ", goodnum=" + goodnum + ", type="
+				+ type + ", topictype=" + topictype + ", userid=" + userid + ", date=" + date + ", user=" + user + "]";
+	}
+
+	public Integer getId() {
         return id;
     }
 

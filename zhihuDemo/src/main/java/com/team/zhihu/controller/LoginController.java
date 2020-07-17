@@ -30,11 +30,12 @@ public class LoginController {
 	 @RequestMapping("user/login")
      public String userLogin(User user,HttpServletRequest req,HttpServletResponse resp) throws IOException {
 	 	 User loginUser = userService.selectByUser(user);
+	 	
 	 	 HttpSession session = req.getSession();
 	 	 // 将当前用户放到session中 名为curUser
 	 	 session.setAttribute("curUser", loginUser);
 	 	 if(loginUser!=null) {
-	 		 return "index";
+	 		 return "redirect:/index";
 	 	 }else {
 	 		resp.setContentType("text/html; charset=UTF-8");
 	 		PrintWriter out = resp.getWriter();

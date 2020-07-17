@@ -1,86 +1,155 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>知乎</title>
-    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
-    <link href="css/index.css" th:href="@{/css/index.css}" rel="stylesheet">
+<meta charset="UTF-8">
+<title>知乎</title>
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<link href="css/index.css" th:href="@{/css/index.css}" rel="stylesheet">
+<link rel="stylesheet"
+	href="css/font-awesome-4.7.0/css/font-awesome.css"
+	th:href="@{/css/font-awesome-4.7.0/css/font-awesome.css}">
+<link rel="stylesheet"
+	href="css/font-awesome-4.7.0/css/font-awesome.min.css"
+	th:href="@{/css/font-awesome-4.7.0/css/font-awesome.min.css}">
 </head>
 
-<script>
-</script>
+
+<style type="text/css">
+.clearfloat {
+	clear: both;
+	height: 0;
+	font-size: 1px;
+	line-height: 0px;
+}
+
+</style>
 <body>
-<div class="container">
-    <div class="header">
-        <div class="header-content">
-            <div class="logo">
-                <img src="/images/logo.jpg" id="img">
-            </div>
-            <div class="nav">
-                <ul class="nav-left">
-                    <li><a href="">首页</a></li>
-                    <li><a href="">发现</a></li>
-                    <li><a href="">等你来答</a></li>
-                </ul>
-                <div class="search-div">
-                    <form action="" method="post">
-                        <input type="text" placeholder="请输入关键词" class="search" id="keyword"><img src="/images/search.png" class="btn-search">
-                    </form>
-                </div>
-             <span class="btn-question"> <a href="">提问</a></span>
-                <ul class="nav-right">
-                    <li><a href=""><img src="/images/ling.png"></a></li>
-                    <li><a href="" ><img src="/images/info.png"></a></li>
-                    <li class="user"><a href=""><img src="/images/person.jpg"></a></li>
-                </ul>
-            </div>
-        </div>
+	<div class="container">
+		<div class="header">
+			<div class="header-content">
+				<div class="logo">
+					<img src="/images/logo.jpg" id="img">
+				</div>
+				<div class="nav">
+					<ul class="nav-left">
+						<li><a href="">首页</a></li>
+						<li><a href="">发现</a></li>
+						<li><a href="">等你来答</a></li>
+					</ul>
+					<div class="search-div">
+						<form action="" method="post">
+							<input type="text" placeholder="请输入关键词" class="search"
+								id="keyword"><img src="/images/search.png"
+								class="btn-search">
+						</form>
+					</div>
+					<span class="btn-question"> <a href="">提问</a></span>
+					<ul class="nav-right">
+						<li><a href=""><i class="fa fa-bell"></i></a></li>
+						<li><a href=""><i class="fa  fa-commenting-o"></i></a></li>
+						<li class="user"><a href=""><span
+								th:text="${session.curUser.username}" style="color: #336699;font-size:16px;"></span>
+								</a></li>
+					</ul>
+				</div>
+			</div>
 
-    </div>
-    <div class="main">
-        <div class="left" id="addCaseDiv" style="display: none;">
-            <iframe></iframe>
-        </div>
-        <div class="right">
-            <div class="operator">
-                <ul class="top">
-                    <li><a href=""> <img src="/images/book.png" style="background-color: #e1f1ff;"></a><p>回答问题</p></li>
-                    <li><a href=""><img src="/images/vidio.png" style="background-color: #fff3e2;"></a><p>发视频</p></li>
-                    <li><a href=""><img src="/images/write.png" style="background-color: #fee2fe;"></a><p>写文章</p></li>
-                    <li><a href=""><img src="/images/Setting.png" style="background-color: #e5f7f7;"></a><p>写想法</p></li>
-                </ul>
-                <div class="bottom">
-                    <span>稍后答</span>
-                    <span>草稿箱</span>
-                </div>
-            </div>
-            <div class="create_center">
-                    <img src="/images/peoples.png">
-                    创作中心
-                    <span>去开通 ></span>
-            </div>
-            <div class="f_type">
-                <p><img src="/images/rightbanner.png"></p>
-                <div class="icon">
-                    <div><img src="/images/shandian.png"><p>Live</p></div>
-                    <div><img src="/images/bookstor.png"><p>书店</p></div>
-                    <div><img src="/images/flower.png"><p>圆桌</p></div>
-                    <div><img src="/images/pen.png"><p>专栏</p></div>
-                    <div><img src="/images/money.png"><p>付费咨询</p></div>
-                    <div><img src="/images/data.png"><p>百科</p></div>
-                </div>
-            </div>
-            <div class="user-list">
-                <div><p><img src="/images/collect.png">收藏<span>0</span></p></div>
-                <div><p><img src="/images/wenhao.png">我关注的问题<span>0</span></p></div>
-                <div><p><img src="/images/addp.png">我的邀请<span>0</span></p></div>
-                <div><p><img src="/images/zhandian.png">站点服务</p></div>
-                <div><p><img src="/images/service.png">帮助中心</p></div>
-                <div><p><img src="/images/banquan.png">版权服务中心</p></div>
-            </div>
-        </div>
-    </div>
+		</div>
+		<div class="main">
+			<div class="left">
+				<iframe id="main" name="main" frameborder="0" src="/content" width="100%"; height="100%"></iframe>
+			</div>
+			<div class="right">
+				<div class="operator">
+					<ul class="top">
+						<li><a href=""> <img src="/images/book.png"
+								style="background-color: #e1f1ff;"></a>
+							<p>回答问题</p></li>
+						<li><a href=""><img src="/images/vidio.png"
+								style="background-color: #fff3e2;"></a>
+							<p>发视频</p></li>
+						<li><a href=""><img src="/images/write.png"
+								style="background-color: #fee2fe;"></a>
+							<p>写文章</p></li>
+						<li><a href=""><img src="/images/Setting.png"
+								style="background-color: #e5f7f7;"></a>
+							<p>写想法</p></li>
+					</ul>
+					<div class="bottom">
+						<span>稍后答</span> <span>草稿箱</span>
+					</div>
+				</div>
+				<div class="create_center">
+					<img src="/images/peoples.png"> 创作中心 <span>去开通 ></span>
+				</div>
+				<div class="f_type">
+					<p>
+						<img src="/images/rightbanner.png">
+					</p>
+					<div class="icon">
+						<div>
+							<img src="/images/shandian.png">
+							<p>Live</p>
+						</div>
+						<div>
+							<img src="/images/bookstor.png">
+							<p>书店</p>
+						</div>
+						<div>
+							<img src="/images/flower.png">
+							<p>圆桌</p>
+						</div>
+						<div>
+							<img src="/images/pen.png">
+							<p>专栏</p>
+						</div>
+						<div>
+							<img src="/images/money.png">
+							<p>付费咨询</p>
+						</div>
+						<div>
+							<img src="/images/data.png">
+							<p>百科</p>
+						</div>
+					</div>
+				</div>
+				<div class="user-list">
+					<div>
+						<p>
+							<img src="/images/collect.png">收藏<span>0</span>
+						</p>
+					</div>
+					<div>
+						<p>
+							<img src="/images/wenhao.png">我关注的问题<span>0</span>
+						</p>
+					</div>
+					<div>
+						<p>
+							<img src="/images/addp.png">我的邀请<span>0</span>
+						</p>
+					</div>
+					<div>
+						<p>
+							<img src="/images/zhandian.png">站点服务
+						</p>
+					</div>
+					<div>
+						<p>
+							<img src="/images/service.png">帮助中心
+						</p>
+					</div>
+					<div>
+						<p>
+							<img src="/images/banquan.png">版权服务中心
+						</p>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+		<div class="clearfloat"></div>
+	</div>
 
-</div>
 </body>
 </html>

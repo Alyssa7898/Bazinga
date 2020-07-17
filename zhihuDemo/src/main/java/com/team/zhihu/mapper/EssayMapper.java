@@ -15,10 +15,15 @@ public interface EssayMapper {
     int insert(Essay record);
 
     int insertSelective(Essay record);
-
+    
     List<Essay> selectByExample(EssayExample example);
 
     Essay selectByPrimaryKey(Integer id);
+    
+    //根据essay表中的type获取文章列表
+    List<Essay> selectByEtype(Integer type);
+    //联合查询user,eassy
+   // List<Essay> selectEssayWithUname(Integer type);
 
     int updateByExampleSelective(@Param("record") Essay record, @Param("example") EssayExample example);
 
