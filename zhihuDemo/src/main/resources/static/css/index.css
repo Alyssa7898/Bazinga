@@ -10,9 +10,9 @@ body {
 }
 
 .container {
-	 width:100%;
-      	height:auto;
-        background-color: #f6f6f6;
+	width: 100%;
+	height: auto;
+	background-color: #f6f6f6;
 }
 
 .header {
@@ -91,7 +91,6 @@ ul {
 .user {
 	width: 40px;
 	height: 100%;
-	color: #FF0099;
 }
 
 .user img {
@@ -107,8 +106,8 @@ ul {
 
 .nav-right li {
 	text-align: center;
-	width:32px;
-	height: 32px;
+	width: 25px;
+	height: 25px;
 	margin-left: 40px;
 }
 
@@ -142,15 +141,16 @@ a {
 	width: 80%;
 	margin: 10px auto;
 	display: grid;
-     grid-template-columns: 70% 29%;
-     column-gap: 5px;
+	grid-template-columns: 70% 29%;
+	column-gap: 5px;
 }
 
 .main .left {
-	height:auto;
+	height: auto;
 }
 
 .main .right {
+	
 }
 
 .operator {

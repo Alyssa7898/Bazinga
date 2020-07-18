@@ -13,5 +13,7 @@ public interface UserService {
 	public int insertUser(User user);
 
 	public User selectByphonenumber(String phonenumber);
+
+	public User selectByUserName(String username);
 	
 }

@@ -57,6 +57,7 @@
                 $("#phoneformat").css('visibility', 'visible');
                 status[2]=false;
             }else{
+            	// 当用户名 密码 和 电话号码 没有问题的时候  可以登录
             	if(status[0]&&status[1]&&status[2]){    
                  	 $(".btn_register").css("background-color","#0084ff");
                  	 $(".btn_register").removeAttr("disabled"); 

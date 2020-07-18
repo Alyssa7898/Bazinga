@@ -124,7 +124,7 @@
     select 
     <include refid="Base_Column_List" />
     from essay
-    where type = #{type,jdbcType=INTEGER}
+    where type = #{type,jdbcType=INTEGER} order by id desc
   </select>
   
   <!-- 联合查询 user,essay -->

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>最新动态展示</title>
+<link href="css/content.css" th:href="@{/css/content.css}"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="css/font-awesome-4.7.0/css/font-awesome.css"
+	th:href="@{/css/font-awesome-4.7.0/css/font-awesome.css}">
+<link rel="stylesheet"
+	href="css/font-awesome-4.7.0/css/font-awesome.min.css"
+	th:href="@{/css/font-awesome-4.7.0/css/font-awesome.min.css}">
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<style>
+</style>
+<script>
+	$(function() {
+		$(".c_good").click(function() {
+
+		})
+	})
+</script>
+<body>
+	<div class="container">
+		<div class="title">
+			<img src="images/book.png"> <span>最新动态</span>
+		</div>
+		<div class="contents">
+
+			<div class="content" th:each="essay : ${session.essays}">
+				<h3 style="padding: 10px 0;" th:text="${essay.title}"></h3>
+				<div class="au_info">
+					<p>
+						<img src="images/person.jpg">
+					</p>
+					<p>
+						<span class="a_name" th:text="${essay.user.username}"></span>,<span
+							style="color: #646464; margin-left: 5px;" th:text="${essay.date}"></span>
+					</p>
+				</div>
+				<p class="good">
+					<span th:text="${essay.goodnum}"></span>人赞同了该回答
+				</p>
+				<div style="padding: 0 10px;">
+					<article th:text="${essay.context}"></article>
+				</div>
+				<div class="oprator">
+					<p class="click_good">
+						<a href="" class="c_good"><i class="fa fa-heartbeat">点赞</i></a>
+					</p>
+					<p class="cancel_good">
+						<a href=""><i class="fa fa-sort-desc"></i></a>
+					</p>
+					<p class="comment">
+						<i class="fa fa-comment"></i><span>130</span>条评论
+					</p>
+					<ul>
+						<li><a href=""><i class="fa fa-paper-plane"></i>分享</a></li>
+						<li><a href=""><i class="fa fa-star"></i> 收藏</a></li>
+						<li><a href=""><i class="fa fa-heart-o"></i> 喜欢</a></li>
+					</ul>
+				</div>
+			</div>
+			<!-- <div class="content" th:each="essay : ${session.essays}">
+				<h3 style="padding: 10px 0;">有什么女主是个心机婊的小说</h3>
+				<div class="au_info">
+					<p>
+						<img src="images/person.jpg">
+					</p>
+					<p>
+						<span class="a_name">一块铁</span><span
+							style="color: #646464; margin-left: 5px;">,+1234567890</span>
+					</p>
+				</div>
+				<p class="good">
+					<span>193</span>人赞同了该回答
+				</p>
+				<div style="padding: 0 10px;">
+					<article>1.强烈推荐三日成晶的小说，女主不仅是个心机婊，而且把男主玩个半死，基本上在她小说下面我就没看见过一个没被虐过的男主，轻则断手断脚，重则精神失常，关键是女主一点也不恋爱脑，男主千方百计隐藏的秘密，很快就会被她看出来，超狠一女的，真的。男主狗的千奇百怪，清新脱俗，女主比他更狗，手段超绝。强烈推荐她的后妈她翻车了和反派穿成虐文女主。2.心机美人，男主是世子，很难动心的那一种，然后女主看上了男主的世子妃之位，就去勾引攻略他。女主真的很擅长攻心，而且收买起男主身边的人，真的是不动声色，让人根本感觉不到。作者说后期女主会翻车，男主会黑化哈哈哈哈。3.满级绿茶穿成小可怜，就是一个擅长攻心的绿茶女主收服她的皇兄皇姐父皇和男主还有顺便和其他绿茶PK的故事，不虐，很好看。4.我穿成了灰姑娘的恶毒继姐。这本强烈推荐，女主我太可了。男主是高高在上的神，非常冷漠淡漠的那种，不攻略他女主就会被男主杀了。于是女主为了让男主爱上她，前期疯狂骗他，后期把他从神坛上拉下来，然后两人相爱相杀，我超可！女主一点也不小白花，反而心机满满，她那个白莲花灰姑娘妹妹根本斗不过她。
+					</article>
+				</div>
+				<div class="oprator">
+					<p class="click_good">
+						<a href="" class="c_good"><i class="fa fa-heartbeat">点赞</i></a>
+					</p>
+					<p class="cancel_good">
+						<a href=""><i class="fa fa-sort-desc"></i></a>
+					</p>
+					<p class="comment">
+						<i class="fa fa-comment"></i><span>130</span>条评论
+					</p>
+					<ul>
+						<li><a href=""><i class="fa fa-paper-plane"></i>分享</a></li>
+						<li><a href=""><i class="fa fa-star"></i> 收藏</a></li>
+						<li><a href=""><i class="fa fa-heart-o"></i> 喜欢</a></li>
+					</ul>
+				</div>
+			</div> -->
+		</div>
+	</div>
+</body>
+</html>

@@ -1,15 +1,29 @@
+
 package com.team.zhihu.bean;
 
 public class Essay {
     private Integer id;
 
-    private String title;
+    public Essay(Integer id, String title, String context, Integer goodnum, Integer type, Integer topictype,
+			Integer userid, String date) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.context = context;
+		this.goodnum = goodnum;
+		this.type = type;
+		this.topictype = topictype;
+		this.userid = userid;
+		this.date = date;
+	}
+
+	private String title;
 
     private String context;
 
     private Integer goodnum;
 
-    private Integer type;
+    private Integer type;//0是文章，1是提问
 
     private Integer topictype;
 
@@ -17,19 +31,14 @@ public class Essay {
 
     private String date;
     private User user;
+    
 
-    public User getUser() {
+	public User getUser() {
 		return user;
 	}
 
 	public void setUser(User user) {
 		this.user = user;
-	}
-
-	@Override
-	public String toString() {
-		return "Essay [id=" + id + ", title=" + title + ", context=" + context + ", goodnum=" + goodnum + ", type="
-				+ type + ", topictype=" + topictype + ", userid=" + userid + ", date=" + date + ", user=" + user + "]";
 	}
 
 	public Integer getId() {

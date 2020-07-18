@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.team.zhihu.bean.User;
 import com.team.zhihu.mapper.UserMapper;
 import com.team.zhihu.service.UserService;
+import com.team.zhihu.utils.MsgPrintUtil;
 
 
 @Controller
@@ -30,20 +31,20 @@ public class LoginController {
 	 @RequestMapping("user/login")
      public String userLogin(User user,HttpServletRequest req,HttpServletResponse resp) throws IOException {
 	 	 User loginUser = userService.selectByUser(user);
+
 	 	
 	 	 HttpSession session = req.getSession();
 	 	 // 将当前用户放到session中 名为curUser
+
 	 	 session.setAttribute("curUser", loginUser);
 	 	 if(loginUser!=null) {
+
+	 		//传递userid
+		 	 session.setAttribute("currId", loginUser.getId());
+
 	 		 return "redirect:/index";
 	 	 }else {
-	 		resp.setContentType("text/html; charset=UTF-8");
-	 		PrintWriter out = resp.getWriter();
-			out.write("<script>");
-			out.write("alert('登录失败，用户名或密码错误');");
-			out.write("location.href='/';");
-			out.write("</script>");
-			out.close();
+	 		MsgPrintUtil.doResponse(resp, "登录失败，用户名或密码错误", "/");
 	 		return "login";
 	 	 }
      }
@@ -51,40 +52,29 @@ public class LoginController {
 	 //用户注册
 	 @RequestMapping("/user/doRegister")
 	 public String userRegister(User user,HttpServletResponse resp) throws IOException {
-		 User registerUser = userService.selectByphonenumber(user.getPhonenumber());
-		 //电话号码不相同 就插入
-		 if(registerUser==null) {
-		 int i =  userService.insertUser(user);
-			 if(i>0) {
-				 resp.setContentType("text/html; charset=UTF-8");
-			 		PrintWriter out = resp.getWriter();
-					out.write("<script>");
-					out.write("alert('注册成功');");
-					out.write("location.href='/';");
-					out.write("</script>");
-					out.close();
-				 return "login";
+		 User cherkPhonenumberUser = userService.selectByphonenumber(user.getPhonenumber());
+		 User checkNameUser        = userService.selectByUserName(user.getUsername());
+		 //电话号码和用户名不相同 就插入
+		 if(checkNameUser==null) {
+			 if(cherkPhonenumberUser==null) {
+			 int i =  userService.insertUser(user);
+				 if(i>0) {
+					 MsgPrintUtil.doResponse(resp, "注册成功", "/");
+					 return "login";
+				 }else {
+					 MsgPrintUtil.doResponse(resp, "注册失败", "/user/register");
+					 return "register";
+				 }
 			 }else {
-				 resp.setContentType("text/html; charset=UTF-8");
-			 		PrintWriter out = resp.getWriter();
-					out.write("<script>");
-					out.write("alert('注册失败');");
-					out.write("location.href='/user/register';");
-					out.write("</script>");
-					out.close();
+				 // 存在要注册的电话号码 则注册失败
+				 MsgPrintUtil.doResponse(resp, "该电话号码已被注册", "/user/register");
 				 return "register";
 			 }
 		 }else {
-			 resp.setContentType("text/html; charset=UTF-8");
-		 		PrintWriter out = resp.getWriter();
-				out.write("<script>");
-				out.write("alert('该电话号码已被注册');");
-				out.write("location.href='/user/register';");
-				out.write("</script>");
-				out.close();
+			 // 用户名已存在  则注册失败
+			 MsgPrintUtil.doResponse(resp, "该用户名已被注册", "/user/register");
 			 return "register";
 		 }
-	 }
-	 
+	 } 
 	 
 }

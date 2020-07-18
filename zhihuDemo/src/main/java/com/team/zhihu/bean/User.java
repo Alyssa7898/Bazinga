@@ -7,7 +7,7 @@ public class User {
 
     private String password;
     
-    private String phonenumber;
+    private String phonenumber;//表改成varchar
 
 	public String getPhonenumber() {
 		return phonenumber;
