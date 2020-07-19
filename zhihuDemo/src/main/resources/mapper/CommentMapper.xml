@@ -8,6 +8,23 @@
     <result column="userid" jdbcType="INTEGER" property="userid" />
     <result column="date" jdbcType="VARCHAR" property="date" />
   </resultMap>
+  <!-- user,essay -->
+  <resultMap id="WithCommentUser"
+		type="com.team.zhihu.bean.Comment">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="essayid" jdbcType="VARCHAR" property="essayid" />
+		<result column="context" jdbcType="LONGVARCHAR" property="context" />
+		<result column="userid" jdbcType="INTEGER" property="userid" />
+		<result column="date" jdbcType="VARCHAR" property="date" />
+		<!-- 联合查询一对一时，对象成员使用 association映射 -->
+		<association property="user"
+			javaType="com.team.zhihu.bean.User">
+			<id column="id" jdbcType="INTEGER" property="id" />
+			<result column="username" jdbcType="VARCHAR" property="username" />
+			<result column="password" jdbcType="VARCHAR" property="password" />
+			<result column="phonenumber" jdbcType="VARCHAR" property="phonenumber" />
+		</association>
+	</resultMap>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -69,6 +86,22 @@
   <sql id="Base_Column_List">
     id, essayid, context, userid, date
   </sql>
+  <sql id="WithComment_User_list">
+ 	 c.id, c.essayid, c.context,c.userid,c.date,
+		u.id,
+		u.username,
+		u.password,
+		u.phonenumber
+  </sql>
+  <!-- //根据文章id查询评论 -->
+  <select id="selectByEssayId" parameterType="java.lang.Integer" resultMap="WithCommentUser">
+		select
+		<include refid="WithComment_User_list" />
+		from comment c left join user u on c.userid = u.id
+		where c.essayid=#{essayid,jdbcType=INTEGER}
+		order by c.id desc
+  </select> 
+  
   <select id="selectByExample" parameterType="com.team.zhihu.bean.CommentExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
