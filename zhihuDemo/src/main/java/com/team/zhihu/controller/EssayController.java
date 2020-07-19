@@ -52,7 +52,7 @@ public class EssayController {
 		    return "index";	
 		}
 		else {
-		    MsgPrintUtil.doResponse(resp, "发布异常，请重新发布", "//writeessay");
+		    MsgPrintUtil.doResponse(resp, "发布异常，请重新发布", "/essay/write");
 	 		return "writeessay";	
 		}
 	  

@@ -1,5 +1,7 @@
 package com.team.zhihu.bean;
 
+import java.util.List;
+
 public class Comment {
     private Integer id;
 
@@ -10,8 +12,56 @@ public class Comment {
     private Integer userid;
 
     private String date;
+    
+    private User user;
+    
+    private Reply reply;
+   private List<Reply> replyList;
+   
+	public List<Reply> getReplyList() {
+	return replyList;
+}
 
-    public Integer getId() {
+public void setReplyList(List<Reply> replyList) {
+	this.replyList = replyList;
+}
+
+	public Reply getReply() {
+		return reply;
+	}
+
+	public void setReply(Reply reply) {
+		this.reply = reply;
+	}
+
+
+	public Comment(Integer id, Integer essayid, String context, Integer userid, String date, User user) {
+		super();
+		this.id = id;
+		this.essayid = essayid;
+		this.context = context;
+		this.userid = userid;
+		this.date = date;
+		this.user = user;
+	}
+
+
+
+
+	public Comment() {
+		super();
+	}
+
+	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Integer getId() {
         return id;
     }
 

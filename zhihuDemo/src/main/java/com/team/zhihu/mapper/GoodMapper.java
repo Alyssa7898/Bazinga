@@ -27,4 +27,6 @@ public interface GoodMapper {
     int updateByPrimaryKeySelective(Good record);
 
     int updateByPrimaryKey(Good record);
+
+	List<Good> selectByUserid(Integer userid);
 }

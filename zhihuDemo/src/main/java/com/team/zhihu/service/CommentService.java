@@ -9,4 +9,7 @@ public interface CommentService {
 	List<Comment> getAllCommentById(int essayid);
 	//添加评论
 	int insertComment(Comment comment);
+	public Integer showCommentNumber(Integer essayid);
+	
+	List<Comment> selectByEssayid(Integer essayid);
 }

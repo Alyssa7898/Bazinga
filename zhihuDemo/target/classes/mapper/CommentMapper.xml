@@ -101,7 +101,12 @@
 		where c.essayid=#{essayid,jdbcType=INTEGER}
 		order by c.id desc
   </select> 
-  
+   <select id="selectByEssayid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from comment where essayid=#{essayid,jdbcType=INTEGER}
+		order by id desc
+  </select> 
   <select id="selectByExample" parameterType="com.team.zhihu.bean.CommentExample" resultMap="BaseResultMap">
     select
     <if test="distinct">

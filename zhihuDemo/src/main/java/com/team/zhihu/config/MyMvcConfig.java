@@ -15,7 +15,6 @@ public class MyMvcConfig  implements WebMvcConfigurer{
 		 registry.addViewController("/").setViewName("login");
 		 registry.addViewController("/index.html").setViewName("login");
 		 registry.addViewController("/user/register").setViewName("register");
-		 registry.addViewController("/index").setViewName("index");
 		 registry.addViewController("/content").setViewName("content");
 		 registry.addViewController("/comment").setViewName("comment");
 		 
@@ -30,7 +29,6 @@ public class MyMvcConfig  implements WebMvcConfigurer{
                 .excludePathPatterns("/index.html")
                 .excludePathPatterns("/css/*")
                 .excludePathPatterns("/images/*");
-
     }
 	
 }

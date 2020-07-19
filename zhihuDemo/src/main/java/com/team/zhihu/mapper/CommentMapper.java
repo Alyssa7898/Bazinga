@@ -31,4 +31,8 @@ public interface CommentMapper {
     int updateByPrimaryKeySelective(Comment record);
 
     int updateByPrimaryKey(Comment record);
+
+	List<Comment> selectByEssayid(Integer essayid);
+
+	Integer selectCommentNumber(Integer essayid);
 }

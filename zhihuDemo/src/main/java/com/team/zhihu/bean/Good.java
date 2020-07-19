@@ -6,8 +6,8 @@ public class Good {
     private Integer userid;
 
     private Integer eassayid;
-
-    public Integer getId() {
+ 
+	public Integer getId() {
         return id;
     }
 

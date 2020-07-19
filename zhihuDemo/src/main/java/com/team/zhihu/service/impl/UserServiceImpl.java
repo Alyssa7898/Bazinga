@@ -33,5 +33,35 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		return userMapper.selectByUserName(username);
 	}
-
+	@Override
+	public User selectByPrimaryKey(Integer id) {
+		// TODO Auto-generated method stub
+		return userMapper.selectByPrimaryKey(id);
+	}
+	@Override
+	public User selectByPrimaryKey(Integer id) {
+		// TODO Auto-generated method stub
+		return userMapper.selectByPrimaryKey(id);
+	}
+	@Override
+	public User selectByPrimaryKey(Integer id) {
+		// TODO Auto-generated method stub
+		return userMapper.selectByPrimaryKey(id);
+	}
+	@Override
+	public User selectByPrimaryKey(Integer id) {
+		// TODO Auto-generated method stub
+		return userMapper.selectByPrimaryKey(id);
+	}
+	@Override
+	public User selectByPrimaryKey(Integer id) {
+		// TODO Auto-generated method stub
+		return userMapper.selectByPrimaryKey(id);
+	}
+	@Override
+	public User selectByPrimaryKey(Integer fromuserid) {
+		// TODO 自动生成的方法存根
+		return userMapper.selectByPrimaryKey(fromuserid);
+	}
+	
 }

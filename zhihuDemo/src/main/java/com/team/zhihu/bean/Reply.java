@@ -14,8 +14,45 @@ public class Reply {
     private Integer touserid;
 
     private String date;
+    
+    private User fromUser;
+    private User toUser;
+    
+    public Reply() {
+		super();
+	}
 
-    public Integer getId() {
+	public Reply(Integer id, Integer essayid, Integer commitid, String context, Integer fromuserid, Integer touserid,
+			String date, User fromUser, User toUser) {
+		super();
+		this.id = id;
+		this.essayid = essayid;
+		this.commitid = commitid;
+		this.context = context;
+		this.fromuserid = fromuserid;
+		this.touserid = touserid;
+		this.date = date;
+		this.fromUser = fromUser;
+		this.toUser = toUser;
+	}
+
+	public User getFromUser() {
+		return fromUser;
+	}
+
+	public void setFromUser(User fromUser) {
+		this.fromUser = fromUser;
+	}
+
+	public User getToUser() {
+		return toUser;
+	}
+
+	public void setToUser(User toUser) {
+		this.toUser = toUser;
+	}
+
+	public Integer getId() {
         return id;
     }
 

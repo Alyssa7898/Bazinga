@@ -14,18 +14,25 @@ public class CommentServiceImpl implements CommentService{
 
 	@Autowired
 	CommentMapper commentMapper;
-	
-	@Override
-	public List<Comment> getAllCommentById(int essayid) {
-		// TODO 自动生成的方法存根
-		
-		return commentMapper.selectByEssayId(essayid);
-	}
+
 
 	@Override
 	public int insertComment(Comment comment) {
 		// TODO 自动生成的方法存根
 		return commentMapper.insert(comment);
 	}
-
+	public List<Comment> selectByEssayid(Integer essayid) {
+		// TODO Auto-generated method stub
+		return commentMapper.selectByEssayid(essayid);
+	}
+	@Override
+	public Integer showCommentNumber(Integer essayid) {
+		// TODO Auto-generated method stub
+		return commentMapper.selectCommentNumber(essayid);
+	}
+	@Override
+	public List<Comment> getAllCommentById(int essayid) {
+		// TODO 自动生成的方法存根
+		return commentMapper.selectByEssayId(essayid);
+	}
 }

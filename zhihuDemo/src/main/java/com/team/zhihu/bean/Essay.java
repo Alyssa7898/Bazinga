@@ -4,23 +4,7 @@ package com.team.zhihu.bean;
 public class Essay {
     private Integer id;
 
-    public Essay(Integer id, String title, String context, Integer goodnum, Integer type, Integer topictype,
-			Integer userid, String date) {
-		super();
-		this.id = id;
-		this.title = title;
-		this.context = context;
-		this.goodnum = goodnum;
-		this.type = type;
-		this.topictype = topictype;
-		this.userid = userid;
-		this.date = date;
-	}
 
-	public Essay() {
-		// TODO 自动生成的构造函数存根
-		super();
-	}
 
 	private String title;
 
@@ -35,7 +19,6 @@ public class Essay {
     private Integer userid;
 
     private String date;
-    private User user;
     private Topic topic;
 
 	public Topic getTopic() {
@@ -44,6 +27,43 @@ public class Essay {
 
 	public void setTopic(Topic topic) {
 		this.topic = topic;
+	}
+    private Integer commentNumber;
+    
+    public Integer getCommentNumber() {
+		return commentNumber;
+	}
+
+	public void setCommentNumber(Integer commentNumber) {
+		this.commentNumber = commentNumber;
+	}
+
+	public Essay() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public String toString() {
+		return "Essay [id=" + id + ", title=" + title + ", context=" + context + ", goodnum=" + goodnum + ", type="
+				+ type + ", topictype=" + topictype + ", userid=" + userid + ", date=" + date + ", user=" + user + "]";
+	}
+
+	private User user;
+    
+
+
+	public Essay(Integer id, String title, String context, Integer goodnum, Integer type, Integer topictype,
+			Integer userid, String date) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.context = context;
+		this.goodnum = goodnum;
+		this.type = type;
+		this.topictype = topictype;
+		this.userid = userid;
+		this.date = date;
 	}
 
 	public User getUser() {

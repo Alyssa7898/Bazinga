@@ -27,4 +27,8 @@ public interface ReplyMapper {
     int updateByPrimaryKeySelective(Reply record);
 
     int updateByPrimaryKey(Reply record);
+
+	Reply selectByCommentKey(Integer commentId);
+	
+	List<Reply> selectByCommentId(Integer commentId);
 }

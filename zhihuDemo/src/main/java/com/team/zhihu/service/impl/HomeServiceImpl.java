@@ -53,4 +53,10 @@ public class HomeServiceImpl implements HomeService{
 		return essayMapper.selectByKeyword(keyword);
 	}
 
+	@Override
+	public Essay selectById(Integer id) {
+		return essayMapper.selectByPrimaryKey(id);
+	}
+
+
 }

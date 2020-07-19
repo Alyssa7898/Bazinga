@@ -87,6 +87,14 @@
     from good
     where id = #{id,jdbcType=INTEGER}
   </select>
+<!--   根据userid查自己点赞的文章id -->  
+  <select id="selectByUserid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from good
+    where userid = #{userid,jdbcType=INTEGER}
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from good
     where id = #{id,jdbcType=INTEGER}
