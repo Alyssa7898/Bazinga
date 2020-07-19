@@ -10,10 +10,7 @@ public interface HomeService {
 	
 	//主页模糊查询
 	List<Essay> selectByKeyworrd(String keyword);
-	
+		
 	Essay selectById(Integer id);
-	
-
-	
 	
 }
