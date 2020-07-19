@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet"
+	href="css/font-awesome-4.7.0/css/font-awesome.css"
+	th:href="@{/css/font-awesome-4.7.0/css/font-awesome.css}">
+<link rel="stylesheet"
+	href="css/font-awesome-4.7.0/css/font-awesome.min.css"
+	th:href="@{/css/font-awesome-4.7.0/css/font-awesome.min.css}">
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<style>
+#comment {
+	width: 100%;
+	overflow:hidden;
+	background-color: #ffffff;
+	border-radius: 5px;
+	box-shadow: 2px 2px 3px #0084ff;
+}
+
+#comment .com_num {
+	border: 1px solid #f6f6f6;
+	height: 40px;
+	line-height: 40px;
+	font-size: 15px;
+	color: black;
+	font-weight: bold;
+	padding-left: 20px;
+	background-color: #f6f6f6;
+}
+
+.com_contexts {
+	color: #1a1a1a;
+	padding: 10px;
+}
+
+.com_contexts p img {
+	width: 30px;
+	height: 30px;
+	vertical-align: middle;
+}
+
+.com_contexts .com_context {
+
+	padding: 15px 10px;
+	border-bottom: #f6f6f6 1px solid;
+}
+
+.com_contexts .com_context article {
+	text-indent: 2em;
+	color:#5e687e;
+font-size:14px;
+}
+
+.write {
+	display: flex;
+	border: 1px solid red;
+	border: none;
+	position: relative;
+}
+.back i{
+color:#0084ff;
+border-radius:5px;font-size:25px;
+padding:10px 0 0 10px;
+
+}
+
+</style>
+<script>
+$(function(){
+	//获取传过来的参数文章id
+	var url = location.search; //获取url中"?"符后的字串
+    var essayid;
+     if(url.indexOf("?") != -1) {
+       str = url.substr(1);
+      strs = str.split("=");
+      essayid = strs[1];
+    }
+
+	$("#back").click(function(){
+		history.back(-1);
+	})
+	$("#submit").click(function(){
+		var context=$("#context").val();
+		/* alert(context);
+		alert(essayid); */
+		$.ajax({
+			url : "addComment",
+					type : 'GET',
+					data : {
+						"essayid" : essayid,
+						"context":context
+					},
+					success : function(msg) {
+						if (msg) {
+							window.parent.main.location.href = "/comment"
+						}
+					}
+				});
+		
+	})
+})
+
+</script>
+<body>
+	<div id="comment" >
+		<span class="back"><i class="fa fa-reply" id="back"></i></span>   
+		<p class="com_num">
+			<span th:text="${session.listComments.size()}"></span>条评论 
+		</p>
+		<div class="com_contexts">
+			<div class="com_context" th:each="comment : ${session.listComments}">
+				<p>
+					<img src="images/person.jpg"><span
+						th:text="${comment.user.username}"></span>
+						<span th:text="${comment.date}" style="margin-left:10px;font-size:14px;"></span>
+				</p>
+				<article th:text="${comment.context}"></article>
+			</div>
+		</div>
+		<div class="write">
+
+		<textarea rows="5" cols="60" name="context" id="context"
+				placeholder="写下你的评论..." style="width: 87%; margin-left: 10px;outline:none;"></textarea>
+			
+			<input type="submit" value="发布" id="submit"
+				style="margin-left: 20px; border-radius: 5px; color: #ffffff; background-color: #0084ff; height: 40px; width: 50px; border: none; position: absolute; bottom: 10px; right: 10px;">
+			
+		</div>
+		 
+	</div>
+</body>
+</html>

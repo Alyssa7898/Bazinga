@@ -28,15 +28,29 @@ public class HomeServiceImpl implements HomeService{
 	}*/
 
 	@Override
-	public List<Essay> selectEssayWithUname(int type) {
+	public List<Essay> selectEssayWithUname() {
 		// TODO 自动生成的方法存根
-		List<Essay> EssayList=new ArrayList<>();
-		EssayList=essayMapper.selectByEtype(type);
+		/*List<Essay> EssayList=new ArrayList<>();
+		EssayList=essayMapper.selectByEtype();
 		for(int i=0;i<EssayList.size();i++) {
 			User user=userMapper.selectByPrimaryKey(EssayList.get(i).getUserid());
 			EssayList.get(i).setUser(user);
 		}
-		return EssayList;
+		return EssayList;*/
+		return essayMapper.selectEssayWithUname();
+	}
+
+	@Override
+	public List<Essay> selectByKeyworrd(String keyword) {
+		// TODO 自动生成的方法存根
+		/*List<Essay> EssayList=new ArrayList<>();
+		EssayList=essayMapper.selectByKeyword(keyword);
+		for(int i=0;i<EssayList.size();i++) {
+			User user=userMapper.selectByPrimaryKey(EssayList.get(i).getUserid());
+			EssayList.get(i).setUser(user);
+		}
+		return EssayList;*/
+		return essayMapper.selectByKeyword(keyword);
 	}
 
 }

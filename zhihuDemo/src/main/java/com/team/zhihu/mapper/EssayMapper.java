@@ -21,10 +21,13 @@ public interface EssayMapper {
     Essay selectByPrimaryKey(Integer id);
     
     //根据essay表中的type获取文章列表
-    List<Essay> selectByEtype(Integer type);
+    List<Essay> selectByEtype();
     //联合查询user,eassy
-   // List<Essay> selectEssayWithUname(Integer type);
-
+    List<Essay> selectEssayWithUname();
+    
+    //模糊查询
+    List<Essay> selectByKeyword(String keyword);
+    
     int updateByExampleSelective(@Param("record") Essay record, @Param("example") EssayExample example);
 
     int updateByExample(@Param("record") Essay record, @Param("example") EssayExample example);

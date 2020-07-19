@@ -17,6 +17,11 @@ public class Essay {
 		this.date = date;
 	}
 
+	public Essay() {
+		// TODO 自动生成的构造函数存根
+		super();
+	}
+
 	private String title;
 
     private String context;
@@ -31,7 +36,15 @@ public class Essay {
 
     private String date;
     private User user;
-    
+    private Topic topic;
+
+	public Topic getTopic() {
+		return topic;
+	}
+
+	public void setTopic(Topic topic) {
+		this.topic = topic;
+	}
 
 	public User getUser() {
 		return user;

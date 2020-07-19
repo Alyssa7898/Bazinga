@@ -11,31 +11,7 @@ public class Comment {
 
     private String date;
 
-    private User user;
-    
-    public Comment() {
-		super();
-	}
-
-	public Comment(Integer id, Integer essayid, String context, Integer userid, String date, User user) {
-		super();
-		this.id = id;
-		this.essayid = essayid;
-		this.context = context;
-		this.userid = userid;
-		this.date = date;
-		this.user = user;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public Integer getId() {
+    public Integer getId() {
         return id;
     }
 

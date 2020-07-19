@@ -5,5 +5,9 @@ import java.util.List;
 import com.team.zhihu.bean.Essay;
 
 public interface HomeService {
-	List<Essay> selectEssayWithUname(int type);
+	//主页文章列表
+	List<Essay> selectEssayWithUname();
+	
+	//主页模糊查询
+	List<Essay> selectByKeyworrd(String keyword);
 }

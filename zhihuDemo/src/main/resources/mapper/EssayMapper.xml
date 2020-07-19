@@ -12,7 +12,7 @@
     <result column="date" jdbcType="VARCHAR" property="date" />
   </resultMap>
   <!-- user,essay -->
-  <!-- <resultMap id="WitdEssayResultMap"
+  <resultMap id="WitdEssayResultMap"
 		type="com.team.zhihu.bean.Essay">
 		<id column="id" jdbcType="INTEGER" property="id" />
 		<result column="title" jdbcType="VARCHAR" property="title" />
@@ -22,15 +22,20 @@
 		<result column="topictype" jdbcType="INTEGER" property="topictype"/>
 		<result column="userid" jdbcType="INTEGER" property="userid" />
 		<result column="date" jdbcType="VARCHAR" property="date" />
-		联合查询一对一时，对象成员使用 association映射
+		<!-- 联合查询一对一时，对象成员使用 association映射 -->
 		<association property="user"
 			javaType="com.team.zhihu.bean.User">
-			<id column="id" property="id" />
-			<result column="username" property="username" />
-			<result column="password" property="password" />
-			<result column="phonenumber" property="phonenumber" />
+			<id column="id" jdbcType="INTEGER" property="id" />
+			<result column="username" jdbcType="VARCHAR" property="username" />
+			<result column="password" jdbcType="VARCHAR" property="password" />
+			<result column="phonenumber" jdbcType="VARCHAR" property="phonenumber" />
 		</association>
-	</resultMap> -->
+		<association property="topic"
+			javaType="com.team.zhihu.bean.Topic">
+			<id column="id" jdbcType="INTEGER" property="id" />
+			<result column="typename" jdbcType="VARCHAR" property="typename" />
+		</association>
+	</resultMap>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -92,13 +97,14 @@
   <sql id="Base_Column_List">
     id, title, context, goodnum, type, topictype, userid, date
   </sql>
- <!--  <sql id="WithEssay_Column_List">
+   <sql id="WithEssay_Column_List">
 		e.id, e.title, e.context, e.goodnum,e.type, e.topictype,e.userid,e.date,
 		u.id,
 		u.username,
 		u.password,
-		u.phonenumber
-	</sql> -->
+		u.phonenumber,
+		t.id,t.typename
+	</sql> 
   <select id="selectByExample" parameterType="com.team.zhihu.bean.EssayExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -123,19 +129,25 @@
   <select id="selectByEtype" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from essay
-    where type = #{type,jdbcType=INTEGER} order by id desc
+    from essay order by id desc
   </select>
-  
+  <!-- 模糊查询 -->
+  <select id="selectByKeyword" parameterType="java.lang.String" resultMap="WitdEssayResultMap">
+  	 select 
+    <include refid="WithEssay_Column_List" />
+    from essay e left join user u on e.userid = u.id
+     left join topic t on e.topictype=t.id
+    where title like '%${value}%' order by e.id desc
+  </select>
   <!-- 联合查询 user,essay -->
-  <!-- <select id="selectEssayWithUname"
+   <select id="selectEssayWithUname"
 		parameterType="java.lang.Integer" resultMap="WitdEssayResultMap">
-		select e.*,u.id,u.username,u.passwor,u.phonenumber
+		select
 		<include refid="WithEssay_Column_List" />
-		from essay e left join user u on e.userid = u.id
-		where type
-		= #{type,jdbcType=INTEGER} order by e.id desc
-  </select> -->
+		 from essay e left join user u on e.userid = u.id
+		 left join topic t on e.topictype=t.id
+		 order by e.id desc
+  </select> 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from essay
     where id = #{id,jdbcType=INTEGER}
