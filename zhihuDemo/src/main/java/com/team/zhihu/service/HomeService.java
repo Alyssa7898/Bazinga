@@ -13,15 +13,5 @@ public interface HomeService {
 	
 	Essay selectById(Integer id);
 	
-	Essay selectById(Integer id);
-	
-	Essay selectById(Integer id);
-	
-	Essay selectById(Integer id);
-	
-	Essay selectById(Integer id);
-	
-	Essay selectById(Integer id);
-	
-	Essay selectById(Integer id);
+
 }
