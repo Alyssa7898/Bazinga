@@ -12,5 +12,4 @@ public interface HomeService {
 	List<Essay> selectByKeyworrd(String keyword);
 		
 	Essay selectById(Integer id);
-	
 }
