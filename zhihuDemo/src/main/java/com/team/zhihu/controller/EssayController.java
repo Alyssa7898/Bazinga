@@ -48,8 +48,8 @@ public class EssayController {
 		essay=new Essay(null,title,content,goodnum,type,topicType,userid,time);
 		int n=essayService.insert(essay);
 		if(n!=0) {
-		    MsgPrintUtil.doResponse(resp, "发布成功！", "index");
-		    return "index";	
+		    MsgPrintUtil.doResponse(resp, "发布成功！", "/index");
+		    return "redirect:/index";	
 		}
 		else {
 		    MsgPrintUtil.doResponse(resp, "发布异常，请重新发布", "/essay/write");
