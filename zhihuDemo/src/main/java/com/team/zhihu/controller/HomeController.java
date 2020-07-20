@@ -76,6 +76,7 @@ public class HomeController {
 			for (Comment comment : listComments) {
 				List<Reply> replys =new ArrayList<>();
 				replys = replyService.selectByCommentKey(comment.getId());
+				System.out.println("replys"+replys);
 				for (Reply reply : replys) {
 					if (reply != null) {
 						User fromUser = userService.selectByPrimaryKey(reply.getFromuserid());

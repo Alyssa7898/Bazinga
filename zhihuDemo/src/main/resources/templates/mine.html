@@ -92,7 +92,7 @@
         width: 40px;
         text-align: center;
     }
-    .operator .comment{
+    .operator .commentNumber{
         margin-left: 30px;
         text-align: center;
         line-height: 30px;
@@ -201,7 +201,7 @@
             <div class="operator">
                 <p class="click_good"><a href="" class="c_good"><i class="fa fa-heartbeat">点赞</i></a></p>
                 <p class="cancel_good"><a href=""><i class="fa fa-sort-desc"></i></a></p>
-                <p class="comment"><a href="javascript:void(0)" class="showCommit"><i class="fa fa-comment"></i>[[${essay.commentNumber}]]条评论</a></p>
+                <p class="commentNumber"><a href="javascript:void(0)" class="showCommit"><i class="fa fa-comment"></i>[[${essay.commentNumber}]]条评论</a></p>
                 <span th:text="${essay.id}" style="display:none"></span>
                 <ul>
                     <li><a href=""><i class="fa fa-paper-plane"></i>分享</a></li>
@@ -213,8 +213,10 @@
              <!-- <div class="comment">
                 <div class="desc">
                    <img src="images/person.jpg">
+                   <span class="getData" style="display: none">3,0</span>
                     <span class="username">username</span>
                     <span class="date">07-28</span>
+                    <p class="commentcontent">你说的这些我们公司都具备[飙泪笑]，工资相比同行业不算高所以留不住人，走的人多招的人也多，我们也是到点就走，平时工作日如果自己的工作做完了，你可以玩一天，领导不会过问，说实话我们公司适合养老</p>                   
                  	<p class="doreply"><a class="replyhref"><i class="fa fa-comment"></i>回复</a></p>
                      <div class="replymessage">
                          <input type="text"   placeholder="回复内容">
@@ -224,9 +226,15 @@
                 <div class="reply">
                     <div class="desc">
                         <img src="images/person.jpg">
+                        <span class="getData" style="display: none">3,1</span>
                         <span class="">username回复username1</span>
                         <span class="date"username>07-28</span>
                         <p class="replycontent">你说的这些我们公司都具备[飙泪笑]，工资相比同行业不算高所以留不住人，走的人多招的人也多，我们也是到点就走，平时工作
+                    <p class="doreply"><a class="replyhref"><i class="fa fa-comment"></i>回复</a></p>
+                     <div class="replymessage">
+                         <input type="text"   placeholder="回复内容">
+                         <button  type="button" class="btn btn-primary userreply">回复</button>
+                   </div>
                     </div>
                 </div> -->
             </div>
@@ -237,94 +245,155 @@
         <script>   
 		        $(function () {
 		        	
-		        	
-		        	 var hideInput= true;
-		             $(".replyhref").each(function () {
-		                 $(this).click(function () {
-		                     var replymessage=$(this).parent().next();
-		                     if(hideInput){
-		                         replymessage.css("display","inline");
-		                         $(this).text("取消回复");
-		                         hideInput = false;		                       
-		                     }else {
-		                         replymessage.css("display","none");
-		                         $(this).text("回复");
-		                         hideInput = true;
-		                     }
-		                 });
-		             })
-		        	
-
-		            
-      	           /*  给动态标签绑定事件
-      	           		同时动态获取 
-      	           */
+		        	/* 页面中点击返回的一块内容*/
+ 		          var replyhtml ="";
+	              replyhtml += "<p class='doreply'><a href='javascript:void(0)' class='replyhref'><i class='fa fa-comment'></i>回复</a></p>";
+   	              replyhtml += "<div class='replymessage'>                                                       ";
+   	              replyhtml += "  <input type='text'   placeholder='回复内容'/>                                   ";
+   	              replyhtml += "  <button  type='button' class='btn btn-primary userreply'>回复</button>         ";
+   	              replyhtml += "</div>                                                                           ";
+      
+   	              /* 回复跟取消回复的动效  需要点击俩次 */
+       	          $(".currentcomment").on("click",".replyhref",function(){
+      	        	 $(this).click(function () {
+	                     var replymessage=$(this).parent().next();	                  
+	                     if($(this).text().length==2){
+	                         replymessage.css("display","inline");
+	                         $(this).text("取消回复");	                        	                       
+	                     }else {
+	                         replymessage.css("display","none");
+	                         $(this).text("回复");	                        
+	                     }
+	                 });
+      	        	 return false;
+      	          });
+		             
+   	              //封装 回复页面
+   	              function getShowReplyHtml(rep){
+   	            	    var  showreplyhtml = "";
+ 	        			showreplyhtml +="	<div class='reply'>      ";
+		                showreplyhtml +="     <div class='desc'>   ";
+		                showreplyhtml +="        <span class='getData' style='display: none'>"+rep.id+",1"+"</span>";
+		                showreplyhtml +="        <img src='/images/person.jpg'>    ";
+		                showreplyhtml +="        <span class=''>"+rep.fromUser.username+"回复"+rep.toUser.username+"</span> ";
+		                showreplyhtml +="         <span class='date'>"+rep.date+"</span>                               ";
+		                showreplyhtml +="        <p class='replycontent'>"+rep.context+"</p>				                ";           
+		                showreplyhtml += replyhtml;
+		                showreplyhtml +="      </div>     ";
+		                showreplyhtml +="    </div>         ";
+		                return showreplyhtml;
+   	              }
+   	              
+   				/*  
+   					给动态标签添加事件 usesrply (回复消息的按钮)
+   				*/
       	          $(".currentcomment").on("click",".userreply",function(){
-      	      				alert($(".replycontent").text());
+      	        	  	/*  获取commenid或者回复id 
+      	        	  			前者data为（commentid，0）
+      	        	  		       前者data为（commentid，1） 
+      	        	  	*/
+      	        	   var data = $(this).parent().parent().find(".getData").text();
+      	        	  	alert(data);
+      	        	  	/*  
+      	        	  		获取输入框的内容
+      	        	  	*/
+      	        	   var input = $(this).parent().find("input");
+      	        	   var text = input.val();
+      	        	   /*  获取当前评论的div*/
+      	        	   var showMycomment = $(this).parents(".comment");
+      	        	   var  showreplyhtml = "";
+      	        	   /*  获取输入框的元素 */
+      	        	   var replymessage = $(this).parent();
+      	        	   /*  当回复的a标签*/
+      	        	   var cancelReply = $(this).parent().parent().find(".replyhref");
+						
+      	        	   //发送ajax请求
+       	        	   $.ajax({
+      	        		 type : "POST",
+      	        		 url  : "/reply/insert",     	   
+      	        		 data : {
+      	        			 			id : data,
+      	        	   					text : text,
+      	        				 },
+      	        		error: function(error){
+      	        			  console.log(error);     	        		   
+      	        		},
+      	        		 success : function(rep) {
+/*       	        		showreplyhtml +="	<div class='reply'>      ";
+			                showreplyhtml +="     <div class='desc'>   ";
+			                showreplyhtml +="        <span class='getData' style='display: none'>"+rep.id+",1"+"</span>";
+			                showreplyhtml +="        <img src='/images/person.jpg'>    ";
+			                showreplyhtml +="        <span class=''>"+rep.fromUser.username+"回复"+rep.toUser.username+"</span> ";
+			                showreplyhtml +="         <span class='date'>"+rep.date+"</span>                               ";
+			                showreplyhtml +="        <p class='replycontent'>"+rep.context+"</p>				                ";           
+			                showreplyhtml += replyhtml;
+			                showreplyhtml +="      </div>     ";
+			                showreplyhtml +="    </div>         "; */
+      	        			showMycomment.append(getShowReplyHtml(rep)); 
+			                
+			                /* 将输入框的内容清空 
+			                	将输入框隐藏
+			                */
+      	        			input.val("");
+      	        			 if(cancelReply.text().length==4){
+      	        				 replymessage.css("display","none");
+    	                         cancelReply.text("回复");	
+      	                    }
+      	        		 }
+      	        	   }) 
+                       return false;
       	          });
 
       	            
+   					//点开评论按钮触发事件
 		          $(".showCommit").each(function(){
-		        	 
+		        	 	//获取 评论的个数 num  为0不能展开  
 		        	  var origin = $(this).text();
 		        	  var num =origin.substring(0,1);
 		        	    if(num!=0){		        		   
-		        	  		$(this).click(function(){		       
+		        	  		$(this).click(function(){		
+		        	  			//获取文章id
 				        		var essayid= $(this).parent().next().text();
+		        	  			//评论的容器
 				       			var commentcontext = "";
-				       			var showreplyhtml = "";
+		        	  			//类为currcomment的标签
 				       			var currcomment = $(this).parent().parent().next();
 				        		var url="/mine/showcommit?essayid="+essayid+"&"+ new Date().getTime();	
 				        		$.get(url,function(data){				        			
-				        			$.each(data, function(i, comment){	
-				      		          var replyhtml ="";
-				  		                  replyhtml += "<p class='doreply'><a class='replyhref'><i class='fa fa-comment'></i>回复</a></p>";
-				        	              replyhtml += "<div class='replymessage'>                                                       ";
-				        	              replyhtml += "  <input type='text'   placeholder='回复内容'>                                   ";
-				        	              replyhtml += "  <button  type='button' class='btn btn-primary userreply'>回复</button>         ";
-				        	               replyhtml += "</div>                                                                           ";
-				        				if(comment.reply!=null){
-							        		showreplyhtml +="	<div class='reply'>                                                                                 ";
-							                showreplyhtml +="     <div class='desc'>                                                                                ";
-							                showreplyhtml +="        <img src='/images/person.jpg'>                                                                  ";
-							                showreplyhtml +="        <span class=''>"+comment.reply.fromUser.username+"回复"+comment.reply.toUser.username+"</span> ";
-							                showreplyhtml +="         <span class='date'>"+comment.reply.date+"</span>                               ";
-							                showreplyhtml +="        <p class='replycontent'>"+comment.reply.context+"</p>				                ";           
-							                showreplyhtml += replyhtml;
-							                showreplyhtml +="      </div>                                                                                           ";
-							                showreplyhtml +="    </div>         ";
-				        				}
-                                                                                    
+				        			$.each(data, function(i, comment){				        	
+				        	        	/*  后端传来的ajax数据可以用url  /mine/showcommit?essayid=1 测试*/
+				        	             var showreplyhtml = "";
+				        	        	/*回复不为空  则遍历  */
+				        				if(comment.replyList!=null){
+				        					$.each(comment.replyList,function(i,rep){
+					        	         		if(comment.id==rep.commitid){		
+					        	         			showreplyhtml = getShowReplyHtml(rep);
+/* 									        		showreplyhtml +="	<div class='reply'>      ";
+									                showreplyhtml +="     <div class='desc'>   ";
+									                showreplyhtml +="        <span class='getData' style='display: none'>"+rep.id+",1"+"</span>";
+									                showreplyhtml +="        <img src='/images/person.jpg'>    ";
+									                showreplyhtml +="        <span class=''>"+rep.fromUser.username+"回复"+rep.toUser.username+"</span> ";
+									                showreplyhtml +="         <span class='date'>"+rep.date+"</span>                               ";
+									                showreplyhtml +="        <p class='replycontent'>"+rep.context+"</p>				                ";           
+									                showreplyhtml += replyhtml;
+									                showreplyhtml +="      </div>     ";
+									                showreplyhtml +="    </div>         "; */
+					        	         		}
+					        	         	})
+				        				}				        	                                             
 				        	           commentcontext +=" <div class='comment'>";
 				        	           commentcontext +="    <div class='desc'>";
 				        	           commentcontext +="        <img src='images/person.jpg'>";
+				        	           commentcontext +="        <span class='getData' style='display: none'>"+comment.id+",0"+"</span>";
 				        	           commentcontext +="        <span class='username' >"+comment.user.username+"</span>";
 				        	           commentcontext +="        <span class='date'>"+comment.date+"</span>";
 				        	           commentcontext +="        <p class='commentcontent'>"+comment.context+"</p>";	
 				        	           commentcontext += replyhtml;
-				        	           commentcontext +="    </div>";
-				        	          
-				        	           commentcontext += showreplyhtml;
-				        	           
-				        	           commentcontext +="  </div> ";
-				        				
+				        	           commentcontext +="    </div>";				        	          
+				        	           commentcontext += showreplyhtml;				        	           
+				        	           commentcontext +="  </div> ";				        	        				        				
 				        			})
-				        			currcomment.html(commentcontext);	
-				        			 var hideInput= true;
-				        			  $(".replyhref").each(function () {
-				 		                 $(this).click(function () {
-				 		                     var replymessage=$(this).parent().next();
-				 		                     if(hideInput){
-				 		                         replymessage.css("display","inline");
-				 		                         $(this).text("取消回复");
-				 		                         hideInput = false;		                       
-				 		                     }else {
-				 		                         replymessage.css("display","none");
-				 		                         $(this).text("回复");
-				 		                         hideInput = true;
-				 		                     }
-				 		                 });
-				 		             })
+				        			currcomment.html(commentcontext);					   
 				        	    });           
 		        	  		
 			        		return false; 

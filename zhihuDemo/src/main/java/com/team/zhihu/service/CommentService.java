@@ -12,4 +12,5 @@ public interface CommentService {
 	public Integer showCommentNumber(Integer essayid);
 	
 	List<Comment> selectByEssayid(Integer essayid);
+	Comment selectByPrimaryKey(Integer id);
 }

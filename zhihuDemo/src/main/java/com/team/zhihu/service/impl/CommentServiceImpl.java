@@ -23,7 +23,7 @@ public class CommentServiceImpl implements CommentService{
 	}
 	public List<Comment> selectByEssayid(Integer essayid) {
 		// TODO Auto-generated method stub
-		return commentMapper.selectByEssayid(essayid);
+		return commentMapper.selectByEssayId(essayid);
 	}
 	@Override
 	public Integer showCommentNumber(Integer essayid) {
@@ -34,5 +34,11 @@ public class CommentServiceImpl implements CommentService{
 	public List<Comment> getAllCommentById(int essayid) {
 		// TODO 自动生成的方法存根
 		return commentMapper.selectByEssayId(essayid);
+	}
+	
+	@Override
+	public Comment selectByPrimaryKey(Integer id) {
+		// TODO Auto-generated method stub
+		return commentMapper.selectByPrimaryKey(id);
 	}
 }

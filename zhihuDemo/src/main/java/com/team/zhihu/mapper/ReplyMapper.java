@@ -31,4 +31,7 @@ public interface ReplyMapper {
 	Reply selectByCommentKey(Integer commentId);
 	
 	List<Reply> selectByCommentId(Integer commentId);
+	
+	List<Reply> selectListByCommenId(Integer commitid);
+	Reply selectByReply(Reply reply);
 }

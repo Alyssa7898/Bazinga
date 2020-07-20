@@ -35,6 +35,19 @@ public class Reply {
 		this.fromUser = fromUser;
 		this.toUser = toUser;
 	}
+	
+	public Reply(Integer id, Integer essayid, Integer commitid, String context, Integer fromuserid, Integer touserid,
+			String date) {
+		super();
+		this.id = id;
+		this.essayid = essayid;
+		this.commitid = commitid;
+		this.context = context;
+		this.fromuserid = fromuserid;
+		this.touserid = touserid;
+		this.date = date;
+		
+	}
 
 	public User getFromUser() {
 		return fromUser;
@@ -52,6 +65,7 @@ public class Reply {
 		this.toUser = toUser;
 	}
 
+	
 	public Integer getId() {
         return id;
     }

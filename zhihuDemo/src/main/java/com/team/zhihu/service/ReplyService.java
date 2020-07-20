@@ -11,4 +11,15 @@ public interface ReplyService {
 	int insertReply(Reply reply);
 	
 	List<Reply> selectByCommentKey(Integer id);
+	
+	List<Reply> selectByCommentid(Integer commentId);
+
+	Reply selectByPrimaryKey(Integer myid);
+
+	Integer insertByReply(Reply reply);
+
+	Reply selectByReply(Reply reply);
+
+	Integer showReplyNumber(Integer eassayid);
+
 }

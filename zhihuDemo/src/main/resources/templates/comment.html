@@ -144,7 +144,7 @@
 				},
 				success : function(msg) {
 					if (msg) {
-						window.parent.main.location.href = "/comment"
+						window.parent.main.location.href = "/comment";
 					}
 				}
 			});
@@ -160,7 +160,6 @@
 			$(this).click(function() {
 				/* var m = document.getElementsByClassName("reply"); */
 				var n = document.getElementsByClassName("user-reply");
-				console.log('回复按钮集合' + this);
 				// 获取回复按钮的索引
 				var index = $(".reply").index($(this));
 				console.log(index);
@@ -180,7 +179,6 @@
 				var context = $(this).parent().prev().children().val();
 				var commitid = $(this).prev().val();
 				var touserid = $(this).next().val();
-				alert(context+'-'+commitid+'-'+touserid)
 				$.ajax({
 					url : "toUserComment",
 					type : 'GET',
@@ -191,10 +189,10 @@
 						"touserid" : touserid
 					},
 					success : function(msg) {
-						alert(13)
 						if (msg) {
+							alert(12)
 							$(this).parent().prev().children().val("");
-							window.parent.main.location.href = "/comment?essayid";
+							window.parent.main.location.href = "/comment";
 						}
 					}
 				})
@@ -222,14 +220,14 @@
 				
 				<div class="user-reply-show" th:each="reply : ${comment.replyList}">
 				<div th:if="${reply.commitid} eq ${comment.id}">
-					<p>
+					<p style="position:relative;">
 						<img src="images/person.jpg"><span
 							th:text="${reply.fromUser.username}"></span> <span
 							style="color: #0084ff; font-size: 16px; magin-left: 15px;">回复</span>
 						<span th:text="${reply.toUser.username}"
 							style="font-weight: bold; margin-left: 15px;"></span> <span
 							th:text="${reply.date}"
-							style="margin-left: 300px; font-size: 14px;"></span>
+							style="position:absolute;right:10px; font-size: 14px;"></span>
 					</p>
 					<article th:text="${reply.context}"></article>
 				</div>

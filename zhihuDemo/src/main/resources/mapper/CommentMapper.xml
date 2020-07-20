@@ -25,6 +25,20 @@
 			<result column="phonenumber" jdbcType="VARCHAR" property="phonenumber" />
 		</association>
 	</resultMap>
+	  <resultMap id="UserNameMap" type="com.team.zhihu.bean.Comment">
+	    <id column="id" jdbcType="INTEGER" property="id" />
+	    <result column="essayid" jdbcType="INTEGER" property="essayid" />
+	    <result column="context" jdbcType="VARCHAR" property="context" />
+	    <result column="userid" jdbcType="INTEGER" property="userid" />
+	    <result column="date" jdbcType="VARCHAR" property="date" />
+	    <association property="user"
+			javaType="com.team.zhihu.bean.User">
+			 <id column="id" jdbcType="INTEGER" property="id" />
+   			 <result column="username" jdbcType="VARCHAR" property="username" />
+   			 <result column="password" jdbcType="VARCHAR" property="password" />
+   			 <result column="phonenumber" jdbcType="VARCHAR" property="phonenumber" />
+		</association>
+  </resultMap>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -93,6 +107,7 @@
 		u.password,
 		u.phonenumber
   </sql>
+  
   <!-- //根据文章id查询评论 -->
   <select id="selectByEssayId" parameterType="java.lang.Integer" resultMap="WithCommentUser">
 		select
@@ -101,12 +116,26 @@
 		where c.essayid=#{essayid,jdbcType=INTEGER}
 		order by c.id desc
   </select> 
-   <select id="selectByEssayid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-		select
-		<include refid="Base_Column_List" />
-		from comment where essayid=#{essayid,jdbcType=INTEGER}
-		order by id desc
-  </select> 
+   <sql id="UserName_Column_List">
+        c.id, c.essayid, c.context, c.userid, substr(date,1,10) as date,
+        u.id,
+        u.username,
+        u.password,
+        u.phonenumber
+  </sql>
+  
+  <select id="selectByEssayid" parameterType="java.lang.Integer" resultMap="UserNameMap">
+    select 
+    <include refid="UserName_Column_List" />
+    from comment c, user u
+    where essayid = #{essayid,jdbcType=INTEGER} and c.userid = u.id order by c.date desc 
+  </select>
+  
+   <select id="selectCommentNumber" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select count(*)
+    from comment
+    where essayid = #{essayid,jdbcType=INTEGER}
+  </select>
   <select id="selectByExample" parameterType="com.team.zhihu.bean.CommentExample" resultMap="BaseResultMap">
     select
     <if test="distinct">

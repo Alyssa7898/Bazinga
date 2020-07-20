@@ -81,8 +81,28 @@
 		select
 		<include refid="Base_Column_List" />
 		from reply
-		where id = #{id,jdbcType=INTEGER}
+		where commitid = #{commentId,jdbcType=INTEGER}
 	</select>
+	<select id="selectListByCommenId" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from reply
+		where commitid = #{commitid,jdbcType=INTEGER}
+	</select>
+	 <select id="selectCommentNumber" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select count(*)
+    from comment
+    where essayid = #{essayid,jdbcType=INTEGER}
+  </select>
+    <!--  通过一些字段  唯一选择一个reply-->
+    <select id="selectByReply" parameterType="com.team.zhihu.bean.Reply" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from reply
+    where commitid =#{commitid,jdbcType=INTEGER} and fromuserid = #{fromuserid,jdbcType=INTEGER}
+    		and touserid = #{touserid,jdbcType=INTEGER} and date= #{date,jdbcType=VARCHAR}
+  </select>
 	<select id="selectByExample" parameterType="com.team.zhihu.bean.ReplyExample"
 		resultMap="BaseResultMap">
 		select
@@ -103,7 +123,7 @@
 		select
 		<include refid="Base_Column_List" />
 		from reply
-		where commitid = #{commentId,jdbcType=INTEGER}
+		where id = #{id,jdbcType=INTEGER}
 	</select>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
 		delete from reply

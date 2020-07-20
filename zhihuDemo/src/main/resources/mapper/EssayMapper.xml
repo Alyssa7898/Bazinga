@@ -36,6 +36,26 @@
 			<result column="typename" jdbcType="VARCHAR" property="typename" />
 		</association>
 	</resultMap>
+	
+	 <resultMap id="WithUSerResultMap"
+		type="com.team.zhihu.bean.Essay">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="title" jdbcType="VARCHAR" property="title" />
+		<result column="context" jdbcType="LONGVARCHAR" property="context" />
+		<result column="goodnum" jdbcType="INTEGER" property="goodnum" />
+		<result column="type" jdbcType="INTEGER" property="type" />
+		<result column="topictype" jdbcType="INTEGER" property="topictype"/>
+		<result column="userid" jdbcType="INTEGER" property="userid" />
+		<result column="date" jdbcType="VARCHAR" property="date" />
+		<!-- 联合查询一对一时，对象成员使用 association映射 -->
+		<association property="user"
+			javaType="com.team.zhihu.bean.User">
+			<id column="id" jdbcType="INTEGER" property="id" />
+			<result column="username" jdbcType="VARCHAR" property="username" />
+			<result column="password" jdbcType="VARCHAR" property="password" />
+			<result column="phonenumber" jdbcType="VARCHAR" property="phonenumber" />
+		</association>
+	</resultMap>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -105,6 +125,14 @@
 		u.phonenumber,
 		t.id,t.typename
 	</sql> 
+	
+	   <sql id="WithUser_Column_List">
+		e.id, e.title, e.context, e.goodnum,e.type, e.topictype,e.userid,e.date,
+		u.id,
+		u.username,
+		u.password,
+		u.phonenumber
+	</sql>
   <select id="selectByExample" parameterType="com.team.zhihu.bean.EssayExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -119,11 +147,11 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="WithUSerResultMap">
     select 
-    <include refid="Base_Column_List" />
-    from essay
-    where id = #{id,jdbcType=INTEGER}
+    <include refid="WithUser_Column_List" />
+    from essay e, user u
+    where e.id = #{id,jdbcType=INTEGER} and e.userid = u.id
   </select>
   <!--查询所有文章  -->
   <select id="selectByEtype" parameterType="java.lang.Integer" resultMap="BaseResultMap">
