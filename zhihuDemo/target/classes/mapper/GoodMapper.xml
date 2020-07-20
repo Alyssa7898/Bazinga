@@ -95,6 +95,11 @@
     where userid = #{userid,jdbcType=INTEGER}
   </select>
   
+  <!-- 根据用户取消点赞删除记录 -->
+  <delete id="deleteByEssayId" parameterType="java.lang.Integer">
+    delete from good
+    where eassayid = #{eassayid,jdbcType=INTEGER} and userid = #{userid,jdbcType=INTEGER}
+  </delete>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from good
     where id = #{id,jdbcType=INTEGER}

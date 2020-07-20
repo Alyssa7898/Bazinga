@@ -20,6 +20,17 @@ public class GoodServiceImpl implements GoodService{
 		// TODO Auto-generated method stub
 		return goodMapper.selectByUserid(id);
 	}
-	
-	
+
+	@Override
+	public int insertGood(Good good) {
+		// TODO 自动生成的方法存根
+		return goodMapper.insert(good);
+	}
+
+	@Override
+	public int cancelGood(Integer essayid, Integer userid) {
+		// TODO 自动生成的方法存根
+		return goodMapper.deleteByEssayId(essayid, userid);
+	}
+
 }

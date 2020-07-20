@@ -176,6 +176,11 @@
 		 left join topic t on e.topictype=t.id
 		 order by e.id desc
   </select> 
+  
+  <!-- 更新文章点赞数 -->
+  <update id="updateGoodNumByid" parameterType="java.lang.Integer">
+ 	 update essay set  goodnum = #{goodnum,jdbcType=INTEGER} where id = #{id,jdbcType=INTEGER}
+  </update>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from essay
     where id = #{id,jdbcType=INTEGER}

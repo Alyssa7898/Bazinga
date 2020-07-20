@@ -70,6 +70,14 @@ public class LoginController {
 			 MsgPrintUtil.doResponse(resp, "该用户名已被注册", "/user/register");
 			 return "register";
 		 }
-	 } 
+	 }
+	 //用户注销
+	 @RequestMapping("/user/logout")
+	 public String toLogout(HttpServletRequest req,HttpServletResponse resp) {
+		 HttpSession session=req.getSession();
+		 session.invalidate();
+		return "login";
+		 
+	 }
 	 
 }

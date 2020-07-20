@@ -35,4 +35,7 @@ public interface EssayMapper {
     int updateByPrimaryKeySelective(Essay record);
 
     int updateByPrimaryKey(Essay record);
+    
+    //更新点赞数
+    int updateGoodNumByid(int goodnum,int id);
 }

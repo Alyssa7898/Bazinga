@@ -74,11 +74,44 @@
 			});
 			objgoodclick.click(function() {
 				if (objgood.text().substr(0, 5) == "点赞") {
+					//alert(12)
+				/* 	objgoodnum.text((parseInt(objgoodnum.text()) + 1));
+					objgood.html("取消"); */
+					var goodnum=Number.parseInt(objgoodnum.text())+1;
+					var id=$(this).parent().next().next().next().val();
 					objgoodnum.text((parseInt(objgoodnum.text()) + 1));
 					objgood.html("取消");
+					$.ajax({
+						url:"essay/addGood",
+						type : 'GET',
+						data : {
+							"essayid" : id,
+							"goodnum":goodnum
+						},
+						success : function(msg) {
+							if (msg) {
+								alert("success");
+							}
+						}
+					});
 				} else if (objgood.text() == "取消") {
+					var goodnum=Number.parseInt(objgoodnum.text())-1;
+					var id=$(this).parent().next().next().next().val();
 					objgoodnum.text((parseInt(objgoodnum.text()) - 1));
 					objgood.html("点赞");
+				 	$.ajax({
+						url:"essay/cancelGood",
+						type : 'GET',
+						data : {
+							"essayid" : id,
+							"goodnum":goodnum
+						},
+						success : function(msg) {
+							if (msg) {
+								alert("success");
+							}
+						}
+					});
 				}
 
 			});

@@ -15,5 +15,10 @@ public class EssayServiceImpl implements EssayService {
 		return essayMapper.insert(essay);
 		
 	}
+	@Override
+	public int addGoodById(int goodnum, int id) {
+		// TODO 自动生成的方法存根
+		return essayMapper.updateGoodNumByid(goodnum, id);
+	}
 
 }

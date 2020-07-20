@@ -29,4 +29,6 @@ public interface GoodMapper {
     int updateByPrimaryKey(Good record);
 
 	List<Good> selectByUserid(Integer userid);
+	
+	int deleteByEssayId(int eassayid,int userid);
 }
